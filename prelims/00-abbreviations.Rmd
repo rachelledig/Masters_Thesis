@@ -1,0 +1,7 @@
+\begin{tabular}{rp{0.2cm}lp{1cm}rp{0.2cm}l}
+    IF & &  Irrigation Fraction \\
+    DAG & &  Directed Acyclic Graph \\
+    TRI & & Terrain Ruggedness Index \\
+    DEM & & Digital Elevation Model \\
+\end{tabular}
+
