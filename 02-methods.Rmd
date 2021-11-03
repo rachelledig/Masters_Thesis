@@ -105,7 +105,7 @@ read.csv(file = "data/aei_nocrop.csv") %>%
   dplyr::select(lat, lon, rugged) %>% 
   unique() %>% 
   ggplot() + 
-  geom_tile(aes(x=lon,y=lat,fill=(rugged/max(rugged)))) +
+  geom_tile(aes(x=lon,y=lat,fill=rugged)) +
   scale_fill_viridis_c() +
   geom_polygon(data=world,aes(x=long, y=lat, group=group), 
                colour="black", fill="white", alpha=0)+
@@ -124,13 +124,17 @@ read.csv(file = "data/aei_nocrop.csv") %>%
 
 ### Social Influences: Population Density {#popdens}
 
-To encapsulate the
-
-#### History Database of the Global Environment {#HYDE}
-
 #### The History Database of the Global Environment (HYDE)
 
+The History Database of the Global Environment (HYDE) was first developed by @kleingoldewijkHundredYear18901997 to better understand and map historical land use patterns anthropogenic activities. Several updates to this dataset have taken place since the publication of the original dataset and currently HYDE Version 3.2 currently includes population estimates and land use patterns for the entirety of the Holocene, which spans the last 12,000 years [@kleingoldewijkAnthropogenicLandUse2017].
+
+For the study period (1960-2005) of this masters thesis, estimates of total population were collected from the United Nations World Populations Prospects [@unitednationspopulationdivisionWorldPopulationProspects2008]. Then this data is harmonized with world wide spatial population patterns from Land Scan [@oakridgenationallaboratoryLandScanLandscanGlobal2014] which shows global population density at a 1km resolution and was used to allocate population totals to each available administrative unit [@kleingoldewijkAnthropogenicLandUse2017]. Population data was then harmonized and scaled resulting in a final data product that yields population density, and other important land use data, on a 0.5° x 0.5° latitude longitude global grid.
+
+This
+
 #### Description {#popdensdesc}
+
+A description of population density estimates from
 
 ### Economics: Income {#gdppc}
 
