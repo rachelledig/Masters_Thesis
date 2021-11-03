@@ -348,14 +348,11 @@ However, there are ways to shift the costs of establishing irrigation from the i
 
 Sometimes external factors play a large role in stimulating irrigation expansion. Social trends, governmental programs, and conflicts among others can influence the rate of irrigation expansion at a sub-national, national, or regional level. This type of expansion could be labeled as top-down, as generally there are larger actors pushing or incentivising the construction of irrigation infrastructure, in comparison to the bottom-up dynamic of locally organized irrigation schemes.
 
-\protect\hyperlink{ref-angelakisIrrigationWorldAgricultural2020}{Angelakis et al.} (\protect\hyperlink{ref-angelakisIrrigationWorldAgricultural2020}{2020}) details explicitly some of these trends that have occurred during the last century. In Spain, during the reign of Francisco Franco,\footnote{At the equator, this is roughly a 9.2km by 9.2km grid cell resolution.} the government began a national water development plan to settle small farmers. This campaign created the foundation for Spain's expansive irrigated agricultural system today, the largest irrigated area in the European Union. Another instance that \protect\hyperlink{ref-angelakisIrrigationWorldAgricultural2020}{Angelakis et al.} (\protect\hyperlink{ref-angelakisIrrigationWorldAgricultural2020}{2020}) discusses is the sudden overall increase in irrigated area after the Second World War, which is attributed to two aspects: a sudden population increase and developments in technology. The population increase, due to increased birthrates and an extension of life span due to medical advances, created a demand for more food and advances in technology, specifically those that were necessary to optimize pumps needed for pressurized irrigation and water transportation systems. Both of these changes resulted in a rapid global expansion of irrigated area. Other examples exist such as the Green Revolution, or Third Agricultural Revolution,\footnote{The act of harvesting rainwater during rain and then later applying it to crops.} also spurred trends of irrigation expansion, particularly in Asia (\protect\hyperlink{ref-angelakisIrrigationWorldAgricultural2020}{Angelakis et al., 2020}). \protect\hyperlink{ref-angelakisIrrigationWorldAgricultural2020}{Angelakis et al.} (\protect\hyperlink{ref-angelakisIrrigationWorldAgricultural2020}{2020}) points out that large scale irrigation projects often succeed due to governmental involvement and support from changing market patterns.
+\protect\hyperlink{ref-angelakisIrrigationWorldAgricultural2020}{Angelakis et al.} (\protect\hyperlink{ref-angelakisIrrigationWorldAgricultural2020}{2020}) details explicitly some of these trends that have occurred during the last century. In Spain, during the reign of Francisco Franco,\footnote{A point estimate is a single value, generally the average, given as the estimate value for a parameter.} the government began a national water development plan to settle small farmers. This campaign created the foundation for Spain's expansive irrigated agricultural system today, the largest irrigated area in the European Union. Another instance that \protect\hyperlink{ref-angelakisIrrigationWorldAgricultural2020}{Angelakis et al.} (\protect\hyperlink{ref-angelakisIrrigationWorldAgricultural2020}{2020}) discusses is the sudden overall increase in irrigated area after the Second World War, which is attributed to two aspects: a sudden population increase and developments in technology. The population increase, due to increased birthrates and an extension of life span due to medical advances, created a demand for more food and advances in technology, specifically those that were necessary to optimize pumps needed for pressurized irrigation and water transportation systems. Both of these changes resulted in a rapid global expansion of irrigated area. Other examples exist such as the Green Revolution, or Third Agricultural Revolution,\footnote{At the equator, this is roughly a 9.2km by 9.2km grid cell resolution.} also spurred trends of irrigation expansion, particularly in Asia (\protect\hyperlink{ref-angelakisIrrigationWorldAgricultural2020}{Angelakis et al., 2020}). \protect\hyperlink{ref-angelakisIrrigationWorldAgricultural2020}{Angelakis et al.} (\protect\hyperlink{ref-angelakisIrrigationWorldAgricultural2020}{2020}) points out that large scale irrigation projects often succeed due to governmental involvement and support from changing market patterns.
 
 \bigskip
 
 Ultimately, the drivers of irrigation are complex and interconnected. When quantifying these forces behind an ever changing pattern of irrigation it is easy to generalize, but the reality of irrigation is that there are infinite combinations of conditions, contexts, times, and ambitions that determine the ultimate success or failure of an irrigation project. What worked in one place and time, is not guaranteed to result in a positive outcome years later and worlds apart. The above sections are not exhaustive in their description of the complexity that is involved in the planning, construction, and operation of the majority of irrigation projects, but they are a good start.
-
-\hypertarget{section}{%
-\section{}\label{section}}
 
 \hypertarget{methods}{%
 \chapter{Methods}\label{methods}}
@@ -365,11 +362,99 @@ Ultimately, the drivers of irrigation are complex and interconnected. When quant
 
 To appropriately choose data that encapsulates the concepts and relationships described in Section \ref{drivers} the following datasets and variables were collected and selected. It should be noted that many of these datasets contain more than one variable that would conceptually represent the links between expanding irrigation and various drivers. The predictors presented below were selected based on various reasons including data availability (both spatially and temporally) and conceptual fidelity. For more information on all potential variables please see Appendix Section \ref{predselect}.
 
+Data from various sources was used in this masters thesis. The primary variable of interest, irrigation fraction, along with several other predictor variable were used as input for or were extracted from the Lund-Potsdam-Jena managed Land (LPJmL) model. Detailed descriptions of the acquisition of all data sets are in the sections to follow.
+
+\hypertarget{external-data}{%
+\subsection{External Data}\label{external-data}}
+
+\hypertarget{rugged}{%
+\subsubsection{Topography: Ruggedness}\label{rugged}}
+
+In order to explain the relationship between topography and irrigation expansion, an index of a country's topographical heterogeniety was chosen. Other similar irrigation expansion studies similarly use slope (calculated from Digital Elevation Models (DEMs)) as a predictor for explaining irrigation expansion but do so using a 5 arcmin gridded slope dataset (\protect\hyperlink{ref-neumannExploringGlobalIrrigation2011}{Neumann et al., 2011}). Unfortunately for this thesis, grid cells used for analysis are significantly larger\footnote{A point estimate is a single value, generally the average, given as the estimate value for a parameter.}, and an aggregation of slope to a larger grid cell was unfeasible for this thesis. Instead, a well know index of country topographical heterogeneity was chosen to represent the ``ruggedness'' of a country.
+
+\hypertarget{TRI}{%
+\paragraph{Terrain Ruggedness Index}\label{TRI}}
+
+The Terrain Ruggedness Index (TRI) was developed by \protect\hyperlink{ref-rileyTerrainRuggednessIndex1999}{Riley, Degloria, \& Elliot} (\protect\hyperlink{ref-rileyTerrainRuggednessIndex1999}{1999}) initially to be used to analyze the effects of topography on species habitats and behaviors. The authors developed a simple method to calculate the heterogeneity of a given area using DEMs. To do so the sum change in elevation is calculated for a cell and its eight nearest neighbors. These individual cell level TRIs can then be averaged for a given region, in this thesis's case, a country (\protect\hyperlink{ref-rileyTerrainRuggednessIndex1999}{Riley, Degloria, \& Elliot, 1999} ). Adapted from \protect\hyperlink{ref-rileyTerrainRuggednessIndex1999}{Riley, Degloria, \& Elliot} (\protect\hyperlink{ref-rileyTerrainRuggednessIndex1999}{1999}), a representation of how TRI scores are calculated for differing types of terrain.
+
+\hypertarget{ruggeddesc}{%
+\paragraph{Description}\label{ruggeddesc}}
+
+In Figure \ref{fig:TRI} the Terrain Ruggedness Index for the study region can be see. Higher values indicate countries with more topographical heterogeneity, and lower values represent less. As you can see
+\begin{figure}
+\centering
+\includegraphics{thesis_files/figure-latex/TRI-1.pdf}
+\caption{\label{fig:TRI}Terrain Ruggedness Index for the study area. TRI values}
+\end{figure}
+\hypertarget{gdppc}{%
+\subsubsection{Economics: Income}\label{gdppc}}
+
+\hypertarget{maddison}{%
+\paragraph{Maddison Project Database}\label{maddison}}
+
+\hypertarget{description}{%
+\paragraph{Description}\label{description}}
+
+\hypertarget{democracy}{%
+\subsubsection{External Influences: Democracy}\label{democracy}}
+
+\hypertarget{BRdemo}{%
+\paragraph{Bjørnskov-Rode Regime Data}\label{BRdemo}}
+
+\hypertarget{description-1}{%
+\paragraph{Description}\label{description-1}}
+
+The base dataset used for this thesis was constructed as an input for LPJmL. A combination of global irrigation patterns from t(\protect\hyperlink{ref-schaphoffLPJmL4DynamicGlobal2018}{Schaphoff et al., 2018}). This dataset was then fed into LPJmL to and used to derive different variables including irrigation, cropland, and crop fraction on a per grid cell basis.
+
+\hypertarget{lpjml-data}{%
+\subsection{LPJmL Data}\label{lpjml-data}}
+
+\hypertarget{dist}{%
+\subsubsection{Compatibility: Distance to the Next Irrigated Cell}\label{dist}}
+
+\hypertarget{lpjml-derived-output}{%
+\paragraph{LPJmL Derived Output}\label{lpjml-derived-output}}
+
+\hypertarget{description-2}{%
+\paragraph{Description}\label{description-2}}
+
+\hypertarget{social-influences-population-density}{%
+\subsubsection{Social Influences: Population Density}\label{social-influences-population-density}}
+
+\hypertarget{the-history-database-of-the-global-environment-hyde}{%
+\paragraph{The History Database of the Global Environment (HYDE)}\label{the-history-database-of-the-global-environment-hyde}}
+
+The History Database of the Global Environment (HYDE) was first developed by \protect\hyperlink{ref-kleingoldewijkHundredYear18901997}{Klein Goldewijk \& Battjes} (\protect\hyperlink{ref-kleingoldewijkHundredYear18901997}{1997}) to better understand and map historical land use patterns anthropogenic activities. Several updates to this dataset have taken place since the publication of the original dataset and currently HYDE Version 3.2 currently includes population estimates and land use patterns for the entirety of the Holocene, which spans the last 12,000 years (\protect\hyperlink{ref-kleingoldewijkAnthropogenicLandUse2017}{\textbf{kleingoldewijkAnthropogenicLandUse2017?}}).
+
+For the study period (1960-2005) of this masters thesis, estimates of total population were collected from the United Nations World Populations Prospects (\protect\hyperlink{ref-unitednationspopulationdivisionWorldPopulationProspects2008}{\textbf{unitednationspopulationdivisionWorldPopulationProspects2008?}}). Then this data is harmonized with world wide spatial population patterns from Land Scan (\protect\hyperlink{ref-oakridgenationallaboratoryLandScanLandscanGlobal2014}{\textbf{oakridgenationallaboratoryLandScanLandscanGlobal2014?}}) which shows global population density at a 1km resolution and was used to allocate population totals to each available administrative unit (\protect\hyperlink{ref-kleingoldewijkAnthropogenicLandUse2017}{\textbf{kleingoldewijkAnthropogenicLandUse2017?}}). Population data was then harmonized resulting in a final data product that yields population density, and other important land use data, on a 0.5° x 0.5° latitude longitude global grid.
+
+The HYDE population density estimates were then used as an input to LPJmL
+
+\hypertarget{popdensdesc}{%
+\paragraph{Description}\label{popdensdesc}}
+
+A description of population density estimates from
+
+\hypertarget{precip}{%
+\subsubsection{Water: Precipitation}\label{precip}}
+
+To encapsulate the relationship between the presence/absence of irrigation or the amount of irrigation in a cell and water, precipitation was chosen to represent this link. Several other variables existed that would have also represented the connection between a water source and irrigation expansion, however to reduce multicollinearity, only one variable could be used to encapsulate all the effects of water. Through an iterative modeling process of checking the strength and stability of different predictor effects, precipitation was ultimately chosen. In addition, using precipitation as a predictor conveniently fits best within the conceptual framework better than others with the notion that farmers will begin to irrigate when there precipitation cannot meet crop demand.
+
+\hypertarget{CRU}{%
+\paragraph{Climate Research Unit Time Series Dataset}\label{CRU}}
+
+Data for precipitation was collected from the Climate Research Unit of the University of East Anglia. This dataset is open-source and includes monthly precipitation data for a 0.5° x 0.5° latitude longitude global grid cell resolution over a time period of 1901 to 2018. To collect this data, individual station observations were anomolized by using the each station's monthly mean from the years 1961 to 1990 to standardize observations as a percentage of the mean monthly value (value of -100 means 0 precipitation, value of 0 is equal to monthly mean for a given station). These anomolies were then converted to a 0.5° x 0.5° latitude longitude grid using angular distance weighting ultimately giving rise to a single monthly value for each grid cell (\protect\hyperlink{ref-universityofeastangliaclimaticresearchunitVersionCRUTS2021}{University of East Anglia Climatic Research Unit, Harris, Osborn, \& Jones, 2021}).
+
+\hypertarget{precipdesc}{%
+\paragraph{Description}\label{precipdesc}}
+
+Below
+
 \hypertarget{irrfrac}{%
-\subsection{Outcome Variable: Irrigation Fraction}\label{irrfrac}}
+\subsubsection{Outcome Variable: Irrigation Fraction}\label{irrfrac}}
 
 \hypertarget{HID}{%
-\subsubsection{Global Historical Irrigation Data Set}\label{HID}}
+\paragraph{Global Historical Irrigation Data Set}\label{HID}}
 
 Data for global historical irrigation patterns was collected from the Global Historical Irrigation Data Set (HID) (\protect\hyperlink{ref-siebertGlobalDataSet2015}{Stefan Siebert et al., 2015}) which describes hectares of area equipped for irrigation (AEI) per grid cell at a 5 arcmin resolution\footnote{At the equator, this is roughly a 9.2km by 9.2km grid cell resolution.} over a period of 105 years, from 1900 to 2005. By documenting global and historical irrigation patterns, \protect\hyperlink{ref-siebertGlobalDataSet2015}{Stefan Siebert et al.} (\protect\hyperlink{ref-siebertGlobalDataSet2015}{2015}) hoped to create a better understanding of the evolution of said patterns. It is worth noting that the dataset provided in \protect\hyperlink{ref-siebertGlobalDataSet2015}{Stefan Siebert et al.} (\protect\hyperlink{ref-siebertGlobalDataSet2015}{2015}) documents area equipped for irrigation, meaning area that is equipped with infrastructure to irrigate crops but not \emph{necessarily} irrigated. In addition, rainwater harvesting\footnote{The act of harvesting rainwater during rain and then later applying it to crops.} is also not included in the summation of area equipped for irrigation. {[}CITATION{]}
 
@@ -378,7 +463,7 @@ To amass this data \protect\hyperlink{ref-siebertGlobalDataSet2015}{Stefan Siebe
 The HID, in combination with other datasets such the History Database of the Global Environment ( \protect\hyperlink{ref-kleingoldewijkHundredYear18901997}{Klein Goldewijk \& Battjes} (\protect\hyperlink{ref-kleingoldewijkHundredYear18901997}{1997}), see Section \ref{HYDE}) and Climate Research Unit Time Series Data ( \protect\hyperlink{ref-universityofeastangliaclimaticresearchunitVersionCRUTS2021}{University of East Anglia Climatic Research Unit, Harris, Osborn, \& Jones} (\protect\hyperlink{ref-universityofeastangliaclimaticresearchunitVersionCRUTS2021}{2021}), see Section (\protect\hyperlink{ref-ref}{\textbf{ref?}})(CRU)) were used was then fed into the LPJmL model. The Lund-Potsdam-Jena managed Land (LPJmL) is a Dynamic Global Vegetation Model which simulates the global terrestrial carbon cycle and the corresponding response of vegetation patterns, both natural and managed, under a given set of climactic conditions (\protect\hyperlink{ref-schaphoffLPJmL4DynamicGlobal2018}{Schaphoff et al., 2018}). Spatially and temporally explicit data regarding climate, landuse patterns, and anthropogenic activities among others is fed into the model and used to simulate, via the LPJmL's established biophysiological interconnections, a multitude of processes and outcome that relate to global vegetation patterns and carbon cycles(\protect\hyperlink{ref-pikLPJmLLundPotsdamJenaManaged}{PIK, n.d.}). For the purposes of this masters thesis, a global irrigation pattern represented by percentage of irrigated area per cell at a 0.5° x 0.5° latitude longitude global grid cell resolution with yearly observations for a period of 1960 to 2005 was extracted from the LPJmL model .
 
 \hypertarget{irrfracdesc}{%
-\subsubsection{Description}\label{irrfracdesc}}
+\paragraph{Description}\label{irrfracdesc}}
 
 Levels of irrigation vary widely both geographically and temporally. In Figure \ref{fig:irrfrac2005} the global irrigation pattern for the last year of they study period (2005) is depicted.
 \begin{figure}
@@ -388,85 +473,10 @@ There are several ``hotspots'' of irrigation that occur, predominantly in the in
 
 When looking at the histogram of the data distribution of the target variable, irrigation fraction, it is clear to see that the data includes many zeros.
 
-\hypertarget{precip}{%
-\subsection{Water: Precipitation}\label{precip}}
-
-To encapsulate the relationship between the presence/absence of irrigation or the amount of irrigation in a cell and water, precipitation was chosen to represent this link. Several other variables existed that would have also represented the connection between a water source and irrigation expansion, however to reduce multicollinearity, only one variable could be used to encapsulate all the effects of water. Through an iterative modeling process of checking the strength and stability of different predictor effects, precipitation was ultimately chosen. In addition, using precipitation as a predictor conveniently fits best within the conceptual framework better than others with the notion that farmers will begin to irrigate when there precipitation cannot meet crop demand.
-
-\hypertarget{CRU}{%
-\subsubsection{Climate Research Unit Time Series Dataset}\label{CRU}}
-
-Data for precipitation was collected from the Climate Research Unit of the University of East Anglia. This dataset is open-source and includes monthly precipitation data for a 0.5° x 0.5° latitude longitude global grid cell resolution over a time period of 1901 to 2018. To collect this data, individual station observations were anomolized by using the each station's monthly mean from the years 1961 to 1990 to standardize observations as a percentage of the mean monthly value (value of -100 means 0 precipitation, value of 0 is equal to monthly mean for a given station). These anomolies were then converted to a 0.5° x 0.5° latitude longitude grid using angular distance weighting ultimately giving rise to a single monthly value for each grid cell (\protect\hyperlink{ref-universityofeastangliaclimaticresearchunitVersionCRUTS2021}{University of East Anglia Climatic Research Unit, Harris, Osborn, \& Jones, 2021}).
-
-\hypertarget{precipdesc}{%
-\subsubsection{Description}\label{precipdesc}}
-
-Below
-
-\hypertarget{rugged}{%
-\subsection{Topography: Ruggedness}\label{rugged}}
-
-In order to explain the relationship between topography and irrigation expansion, an index of a country's topographical heterogeniety was chosen. Other similar irrigation expansion studies similarly use slope (calculated from Digital Elevation Models (DEMs)) as a predictor for explaining irrigation expansion but do so using a 5 arcmin gridded slope dataset (\protect\hyperlink{ref-neumannExploringGlobalIrrigation2011}{Neumann et al., 2011}). Unfortunately for this thesis, grid cells used for analysis are significantly larger\footnote{A 5 arcmin global grid results in a 9.2km by 9.2km grid at the equator. This thesis uses a 0.5° x 0.5° lattitude longitude grid which produces a grid cell of about 55km by 55km at the equator.}, and an aggregation of slope to a larger grid cell was unfeasible for this thesis. Instead, a well know index of country topographical heterogeneity was chosen to represent the ``ruggedness'' of a country.
-
-\hypertarget{TRI}{%
-\subsubsection{Terrain Ruggedness Index}\label{TRI}}
-
-The Terrain Ruggedness Index (TRI) was developed by \protect\hyperlink{ref-rileyTerrainRuggednessIndex1999}{Riley, Degloria, \& Elliot} (\protect\hyperlink{ref-rileyTerrainRuggednessIndex1999}{1999}) initially to be used to analyze the effects of topography on species habitats and behaviors. The authors developed a simple method to calculate the heterogeneity of a given area using DEMs. To do so the sum change in elevation is calculated for a cell and its eight nearest neighbors. These individual cell level TRIs can then be averaged for a given region, in this thesis's case, a country (\protect\hyperlink{ref-rileyTerrainRuggednessIndex1999}{Riley, Degloria, \& Elliot, 1999} ). Adapted from \protect\hyperlink{ref-rileyTerrainRuggednessIndex1999}{Riley, Degloria, \& Elliot} (\protect\hyperlink{ref-rileyTerrainRuggednessIndex1999}{1999}),
-
-\hypertarget{ruggeddesc}{%
-\subsubsection{Description}\label{ruggeddesc}}
-
-In Figure \ref{fig:TRI} the Terrain Ruggedness Index for the study region can be see. Higher values indicate countries with more topographical heterogeneity, and lower values represent less. As you can see
-\begin{figure}
-\centering
-\includegraphics{thesis_files/figure-latex/TRI-1.pdf}
-\caption{\label{fig:TRI}Terrain Ruggedness Index for the study area. TRI values}
-\end{figure}
-\hypertarget{dist}{%
-\subsection{Compatibility: Distance to the Next Irrigated Cell}\label{dist}}
-
-\hypertarget{distdata}{%
-\subsubsection{LPJmL Derived Output}\label{distdata}}
-
-\hypertarget{distdesc}{%
-\subsubsection{Description}\label{distdesc}}
-
-\hypertarget{popdens}{%
-\subsection{Social Influences: Population Density}\label{popdens}}
-
-\hypertarget{HYDE}{%
-\subsection{History Database of the Global Environment}\label{HYDE}}
-
-The History Database of the Global Environment (HYDE)
-
-\hypertarget{popdensdesc}{%
-\subsubsection{Description}\label{popdensdesc}}
-
-\hypertarget{gdppc}{%
-\subsection{Economics: Income}\label{gdppc}}
-
-\hypertarget{maddison}{%
-\subsubsection{Maddison Project Database}\label{maddison}}
-
-\hypertarget{gdppcdesc}{%
-\subsubsection{Description}\label{gdppcdesc}}
-
-\hypertarget{democracy}{%
-\subsection{External Influences: Democracy}\label{democracy}}
-
-\hypertarget{BRdemo}{%
-\subsubsection{Bjørnskov-Rode Regime Data}\label{BRdemo}}
-
-\hypertarget{demodesc}{%
-\subsubsection{Description}\label{demodesc}}
-
-The base dataset used for this thesis was constructed as an input for LPJmL. A combination of global irrigation patterns from t(\protect\hyperlink{ref-schaphoffLPJmL4DynamicGlobal2018}{Schaphoff et al., 2018}). This dataset was then fed into LPJmL to and used to derive different variables including irrigation, cropland, and crop fraction on a per grid cell basis.
-
 \hypertarget{hypothesis}{%
 \section{Hypothesis}\label{hypothesis}}
 
-Based on information discussed above several hypothesis can be formed to investigate the expected effects of different predictors. As discussed previously there are two outcome variables in this masters thesis: the presence/absence of irrigation and the amount of irrigation. Hypothesis are similar for both predictor variables.
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+Based on information discussed above several hypothesis can be formed to investigate the expected effects of different predictors. As discussed previously there are two outcome variables in this masters thesis: the presence/absence of irrigation and the amount of irrigation. Hypothesis are similar for both predictor variables. The rational is explained below in addition to the hypothesis.
 
 For the amount of irrigation present in a cell the stated hypothesis for this thesis are:
 \begin{enumerate}
@@ -479,6 +489,22 @@ For the amount of irrigation present in a cell the stated hypothesis for this th
 \item
   An \textbf{increase in income (GDP per capita)} will result in an \textbf{increase in irrigation.}
 \item
+  A \textbf{decrease in topographical heterogeniety (ruggedness)} will result in an increase in \textbf{irrigation.}
+\item
+  An \textbf{increase in democratic values} will result in an \textbf{increase in irrigation.}
+\end{enumerate}
+For the presence or absence of irrigation, the following hypothesis are proposed:
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  A \textbf{decrease in distance to the next irrigated cell} will result in an \textbf{increase of irrigated cells.}
+\item
+  An \textbf{increase in population density} will result in an \textbf{increase in irrigated cells.}
+\item
+  A \textbf{decrease in precipitation} will result in an \textbf{increase in irrigated cells.}
+\item
+  An \textbf{increase in income (GDP per capita)} will result in an \textbf{increase of irrigated cells.}
 \end{enumerate}
 \hypertarget{studyreg}{%
 \section{Study Region}\label{studyreg}}
@@ -491,11 +517,6 @@ Figure \ref{fig:irrfrac-2005} illustrates the pattern of irrigation at the last 
 \includegraphics{thesis_files/figure-latex/study-region-nocrop-1.pdf}
 \caption{\label{fig:study-region-nocrop}Final study area after the removal of cells with no agricultural land over the course of the 45 year study period. Colors represent regional groupings. Notice that excluded areas are located within the Amazon, the Sahara, Central Africa, the Middle East, Eastern China, and toward the Arctic Circle (represented at 60 degrees North with a red horozontal line).}
 \end{figure}
-\hypertarget{section-1}{%
-\section{}\label{section-1}}
-
-Building from the conceptual basis established in Section \ref{drivers} several hypothesis can be formed regarding the effects of various drivers on irrigation fraction.
-
 \hypertarget{bayesintro}{%
 \section{Modeling}\label{bayesintro}}
 
@@ -512,6 +533,74 @@ Building from the conceptual basis established in Section \ref{drivers} several 
 
 Bayesian inference has some unique features in comparison to other forms of statistical influence. For the context of this thesis the two main advantages or Bayesian Inference are an improved propagation of uncertainty throughout the modeling process and an ability to include prior information into models, allowing the inclusion prior knowledge (\protect\hyperlink{ref-gelmanRegressionOtherStories2020}{Gelman, Hill, \& Vehtari, 2020}).
 
+\hypertarget{standardization}{%
+\subsection{Standardization}\label{standardization}}
+
+\hypertarget{time-series-constraints}{%
+\subsection{Time Series Constraints}\label{time-series-constraints}}
+
+\hypertarget{hierarchical-modeling}{%
+\subsection{Hierarchical Modeling}\label{hierarchical-modeling}}
+
+\hypertarget{dags}{%
+\subsubsection{DAGs}\label{dags}}
+
+A Directed Acyclic Graph (DAG)
+\begin{figure}
+\centering
+\includegraphics{thesis_files/figure-latex/mudag-1.pdf}
+\caption{\label{fig:mudag}Directed Acyclic Graph for Beta}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics{thesis_files/figure-latex/zidag-1.pdf}
+\caption{\label{fig:zidag}Directed Acyclic Graph for zero inflated paramater zi}
+\end{figure}
+To test these hypothesis, a quick view of correlations was carried out.
+
+\texttt{fr\ if(knitr:::is\_latex\_output())\ \textquotesingle{}\textbackslash{}\textbackslash{}appendix\textquotesingle{}}
+
+\hypertarget{appendix}{%
+\chapter{Appendix}\label{appendix}}
+
+\hypertarget{bayesproof}{%
+\section{\texorpdfstring{Proof of Bayes' Theorem for Two Hypothesis from \protect\hyperlink{ref-hackingIntroductionProbabilityInductive2001}{Hacking} (\protect\hyperlink{ref-hackingIntroductionProbabilityInductive2001}{2001})}{Proof of Bayes' Theorem for Two Hypothesis from Hacking (2001)}}\label{bayesproof}}
+
+Definition of \textbf{Conditional Probability} taken from \protect\hyperlink{ref-hackingIntroductionProbabilityInductive2001}{Hacking} (\protect\hyperlink{ref-hackingIntroductionProbabilityInductive2001}{2001}) beginning on p.49:
+\begin{equation}
+\text{Pr(A|B)}= \frac{\text{Pr(A,B)}}{\text{Pr(B)}} 
+\label{eq:conditionalprob}
+\end{equation}
+Implying that for \(\text{Pr(B) > 0}\),
+\begin{equation}
+\text{Pr(A|B)} * \text{Pr(B)} = \text{Pr(A,B)}  
+\label{eq:conditionalprobproof1}
+\end{equation}
+Knowing that,
+\begin{equation}
+\text{Pr(B,A)} = \text{Pr(A,B)} 
+\label{eq:conditionalprobproof2}
+\end{equation}
+Therefore,
+\begin{equation}
+\text{Pr(B|A)} * \text{Pr(A)} = \text{Pr(A|B)} * \text{Pr(B)} 
+\label{eq:conditionalprobproof3}
+\end{equation}
+Dividing by \(\text{P(A)}\), gives Bayes' Theorem (equivalent to Equation \eqref{eq:bayesmath})
+\begin{equation}
+\text{Pr(B|A)}= \frac{\text{Pr(A|B) * Pr(B)}}{\text{Pr(A)}} 
+\label{eq:bayes}
+\end{equation}
+Assuming that \(0 < \text{Pr(B)} < 1\), the equation for \textbf{Total Probability} taken from \protect\hyperlink{ref-hackingIntroductionProbabilityInductive2001}{Hacking} (\protect\hyperlink{ref-hackingIntroductionProbabilityInductive2001}{2001, p. 59}) can be written:
+\begin{equation}
+\text{Pr(A)} = \text{Pr(A|B)} * \text{Pr(B)} + \text{Pr(A|Not B)} * \text{Pr(Not B)}
+\label{eq:totalprob}
+\end{equation}
+Substituting Equation \eqref{eq:totalprob} into Equation \eqref{eq:bayes}, giving rise to the Equation \eqref{eq:twohypothesis}, the base equation used for the basis of Equation \eqref{eq:bayesspecial},
+\begin{equation}
+\text{Pr(B|A)}= \frac{\text{Pr(A|B) * Pr(B)}}{\text{Pr(A|B)} * \text{Pr(B)} + \text{Pr(A|Not B)} * \text{Pr(Not B)}} 
+\label{eq:twohypothesis}
+\end{equation}
 \hypertarget{bayesthe}{%
 \subsection{Bayes Theorem}\label{bayesthe}}
 
@@ -578,68 +667,6 @@ Multiple ways to compare models exist, some rely more heavily on a conceptual an
 
 More informal methods of model comparison exist such as prior and posterior predictive checks, comparison of bayes' factor or bayesian \(R^2\) among others. (\protect\hyperlink{ref-gelmanUnderstandingPredictiveInformation2014}{Gelman, Hwang, \& Vehtari, 2014}). However, as these checks are done using within-sample data, and some can be prone to overfitting under certain circumstances (\protect\hyperlink{ref-mcelreathStatisticalRethinkingBayesian2020}{McElreath, 2020, Chapter 7})
 
-\hypertarget{hierarchical-modeling}{%
-\subsection{Hierarchical Modeling}\label{hierarchical-modeling}}
-
-\hypertarget{dags}{%
-\subsubsection{DAGs}\label{dags}}
-
-A Directed Acyclic Graph (DAG)
-\begin{figure}
-\centering
-\includegraphics{thesis_files/figure-latex/mudag-1.pdf}
-\caption{\label{fig:mudag}Directed Acyclic Graph for Beta}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics{thesis_files/figure-latex/zidag-1.pdf}
-\caption{\label{fig:zidag}Directed Acyclic Graph for zero inflated paramater zi}
-\end{figure}
-To test these hypothesis, a quick view of correlations was carried out.
-
-\texttt{fr\ if(knitr:::is\_latex\_output())\ \textquotesingle{}\textbackslash{}\textbackslash{}appendix\textquotesingle{}}
-
-\hypertarget{appendix}{%
-\chapter{Appendix}\label{appendix}}
-
-\hypertarget{bayesproof}{%
-\section{\texorpdfstring{Proof of Bayes' Theorem for Two Hypothesis from \protect\hyperlink{ref-hackingIntroductionProbabilityInductive2001}{Hacking} (\protect\hyperlink{ref-hackingIntroductionProbabilityInductive2001}{2001})}{Proof of Bayes' Theorem for Two Hypothesis from Hacking (2001)}}\label{bayesproof}}
-
-Definition of \textbf{Conditional Probability} taken from \protect\hyperlink{ref-hackingIntroductionProbabilityInductive2001}{Hacking} (\protect\hyperlink{ref-hackingIntroductionProbabilityInductive2001}{2001}) beginning on p.49:
-\begin{equation}
-\text{Pr(A|B)}= \frac{\text{Pr(A,B)}}{\text{Pr(B)}} 
-\label{eq:conditionalprob}
-\end{equation}
-Implying that for \(\text{Pr(B) > 0}\),
-\begin{equation}
-\text{Pr(A|B)} * \text{Pr(B)} = \text{Pr(A,B)}  
-\label{eq:conditionalprobproof1}
-\end{equation}
-Knowing that,
-\begin{equation}
-\text{Pr(B,A)} = \text{Pr(A,B)} 
-\label{eq:conditionalprobproof2}
-\end{equation}
-Therefore,
-\begin{equation}
-\text{Pr(B|A)} * \text{Pr(A)} = \text{Pr(A|B)} * \text{Pr(B)} 
-\label{eq:conditionalprobproof3}
-\end{equation}
-Dividing by \(\text{P(A)}\), gives Bayes' Theorem (equivalent to Equation \eqref{eq:bayesmath})
-\begin{equation}
-\text{Pr(B|A)}= \frac{\text{Pr(A|B) * Pr(B)}}{\text{Pr(A)}} 
-\label{eq:bayes}
-\end{equation}
-Assuming that \(0 < \text{Pr(B)} < 1\), the equation for \textbf{Total Probability} taken from \protect\hyperlink{ref-hackingIntroductionProbabilityInductive2001}{Hacking} (\protect\hyperlink{ref-hackingIntroductionProbabilityInductive2001}{2001, p. 59}) can be written:
-\begin{equation}
-\text{Pr(A)} = \text{Pr(A|B)} * \text{Pr(B)} + \text{Pr(A|Not B)} * \text{Pr(Not B)}
-\label{eq:totalprob}
-\end{equation}
-Substituting Equation \eqref{eq:totalprob} into Equation \eqref{eq:bayes}, giving rise to the Equation \eqref{eq:twohypothesis}, the base equation used for the basis of Equation \eqref{eq:bayesspecial},
-\begin{equation}
-\text{Pr(B|A)}= \frac{\text{Pr(A|B) * Pr(B)}}{\text{Pr(A|B)} * \text{Pr(B)} + \text{Pr(A|Not B)} * \text{Pr(Not B)}} 
-\label{eq:twohypothesis}
-\end{equation}
 \hypertarget{covidex}{%
 \section{Digression: Covid Rapid Antigen Tests}\label{covidex}}
 

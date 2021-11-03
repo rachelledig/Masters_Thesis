@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2021.10.26)  2 NOV 2021 16:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2021.10.26)  3 NOV 2021 17:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -677,7 +677,7 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: threeparttable package is loaded.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
-<figure/HU_Logo_small.png, id=124, 401.5pt x 401.5pt>
+<figure/HU_Logo_small.png, id=100, 401.5pt x 401.5pt>
 File: figure/HU_Logo_small.png Graphic file (type png)
 <use figure/HU_Logo_small.png>
 Package pdftex.def Info: figure/HU_Logo_small.png  used on input line 207.
@@ -759,7 +759,7 @@ p} <./figure/HU_Logo_small.png>] [2
 [3] [4
 
 ] (./thesis.lof
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 5
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 6
 .
 (/Users/rachelledig/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
@@ -802,18 +802,18 @@ l.279
        [3
 
 ]
-<figure/FurrowPic.jpeg, id=317, 1003.75pt x 669.50125pt>
+<figure/FurrowPic.jpeg, id=287, 1003.75pt x 669.50125pt>
 File: figure/FurrowPic.jpeg Graphic file (type jpg)
 <use figure/FurrowPic.jpeg>
 Package pdftex.def Info: figure/FurrowPic.jpeg  used on input line 295.
 (pdftex.def)             Requested size: 130.07855pt x 130.07718pt.
-<figure/Irrigation-sprinklers.jpeg, id=318, 1606.0pt x 1075.01625pt>
+<figure/Irrigation-sprinklers.jpeg, id=288, 1606.0pt x 1075.01625pt>
 File: figure/Irrigation-sprinklers.jpeg Graphic file (type jpg)
 <use figure/Irrigation-sprinklers.jpeg>
 Package pdftex.def Info: figure/Irrigation-sprinklers.jpeg  used on input line 
 295.
 (pdftex.def)             Requested size: 130.07549pt x 130.07901pt.
-<figure/DripIrrigation.jpeg, id=319, 652.4375pt x 489.83pt>
+<figure/DripIrrigation.jpeg, id=289, 652.4375pt x 489.83pt>
 File: figure/DripIrrigation.jpeg Graphic file (type jpg)
 <use figure/DripIrrigation.jpeg>
 Package pdftex.def Info: figure/DripIrrigation.jpeg  used on input line 295.
@@ -839,55 +839,69 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 ]
 Chapter 3.
 [11]
-<figure/irrfrac2005.png, id=465, 1606.0pt x 803.0pt>
+<thesis_files/figure-latex/TRI-1.pdf, id=418, 469.755pt x 325.215pt>
+File: thesis_files/figure-latex/TRI-1.pdf Graphic file (type pdf)
+<use thesis_files/figure-latex/TRI-1.pdf>
+Package pdftex.def Info: thesis_files/figure-latex/TRI-1.pdf  used on input lin
+e 386.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Overfull \hbox (36.13387pt too wide) in paragraph at lines 386--387
+ [][] 
+ []
+
+[12 <./thesis_files/figure-latex/TRI-1.pdf>] [13] [14]
+
+LaTeX Warning: Reference `HYDE' on page 15 undefined on input line 463.
+
+<figure/irrfrac2005.png, id=521, 1606.0pt x 803.0pt>
 File: figure/irrfrac2005.png Graphic file (type png)
 <use figure/irrfrac2005.png>
-Package pdftex.def Info: figure/irrfrac2005.png  used on input line 385.
+Package pdftex.def Info: figure/irrfrac2005.png  used on input line 470.
 (pdftex.def)             Requested size: 1003.75366pt x 501.88602pt.
 
-Overfull \hbox (570.13367pt too wide) in paragraph at lines 385--385
+Overfull \hbox (570.13367pt too wide) in paragraph at lines 470--470
 [][] 
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[12] [13 <./figure/irrfrac2005.png>] [14]
-<thesis_files/figure-latex/TRI-1.pdf, id=505, 469.755pt x 325.215pt>
-File: thesis_files/figure-latex/TRI-1.pdf Graphic file (type pdf)
-<use thesis_files/figure-latex/TRI-1.pdf>
-Package pdftex.def Info: thesis_files/figure-latex/TRI-1.pdf  used on input lin
-e 422.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-
-Overfull \hbox (36.13387pt too wide) in paragraph at lines 422--423
- [][] 
- []
-
-[15 <./thesis_files/figure-latex/TRI-1.pdf>] [16]
+[15] [16 <./figure/irrfrac2005.png>]
 
 LaTeX Warning: Reference `fig:irrfrac-2005' on page 17 undefined on input line 
-488.
+514.
 
-<thesis_files/figure-latex/study-region-nocrop-1.pdf, id=554, 469.755pt x 325.2
+<thesis_files/figure-latex/study-region-nocrop-1.pdf, id=538, 469.755pt x 325.2
 15pt>
 File: thesis_files/figure-latex/study-region-nocrop-1.pdf Graphic file (type pd
 f)
 <use thesis_files/figure-latex/study-region-nocrop-1.pdf>
 Package pdftex.def Info: thesis_files/figure-latex/study-region-nocrop-1.pdf  u
-sed on input line 491.
+sed on input line 517.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Overfull \hbox (36.13387pt too wide) in paragraph at lines 491--492
+Overfull \hbox (36.13387pt too wide) in paragraph at lines 517--518
  [][] 
  []
 
-[17 <./thesis_files/figure-latex/study-region-nocrop-1.pdf>] [18]
-<thesis_files/figure-latex/prioreffects-1.pdf, id=602, 469.755pt x 325.215pt>
-File: thesis_files/figure-latex/prioreffects-1.pdf Graphic file (type pdf)
-<use thesis_files/figure-latex/prioreffects-1.pdf>
-Package pdftex.def Info: thesis_files/figure-latex/prioreffects-1.pdf  used on 
-input line 556.
+[17] [18 <./thesis_files/figure-latex/study-region-nocrop-1.pdf>]
+<thesis_files/figure-latex/mudag-1.pdf, id=571, 469.755pt x 325.215pt>
+File: thesis_files/figure-latex/mudag-1.pdf Graphic file (type pdf)
+<use thesis_files/figure-latex/mudag-1.pdf>
+Package pdftex.def Info: thesis_files/figure-latex/mudag-1.pdf  used on input l
+ine 551.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Overfull \hbox (36.13387pt too wide) in paragraph at lines 551--552
+ [][] 
+ []
+
+<thesis_files/figure-latex/zidag-1.pdf, id=572, 469.755pt x 325.215pt>
+File: thesis_files/figure-latex/zidag-1.pdf Graphic file (type pdf)
+<use thesis_files/figure-latex/zidag-1.pdf>
+Package pdftex.def Info: thesis_files/figure-latex/zidag-1.pdf  used on input l
+ine 556.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
 Overfull \hbox (36.13387pt too wide) in paragraph at lines 556--557
@@ -897,63 +911,47 @@ Overfull \hbox (36.13387pt too wide) in paragraph at lines 556--557
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[19] [20 <./thesis_files/figure-latex/prioreffects-1.pdf>] [21]
-<thesis_files/figure-latex/mudag-1.pdf, id=647, 469.755pt x 325.215pt>
-File: thesis_files/figure-latex/mudag-1.pdf Graphic file (type pdf)
-<use thesis_files/figure-latex/mudag-1.pdf>
-Package pdftex.def Info: thesis_files/figure-latex/mudag-1.pdf  used on input l
-ine 590.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-
-Overfull \hbox (36.13387pt too wide) in paragraph at lines 590--591
- [][] 
- []
-
-<thesis_files/figure-latex/zidag-1.pdf, id=648, 469.755pt x 325.215pt>
-File: thesis_files/figure-latex/zidag-1.pdf Graphic file (type pdf)
-<use thesis_files/figure-latex/zidag-1.pdf>
-Package pdftex.def Info: thesis_files/figure-latex/zidag-1.pdf  used on input l
-ine 595.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-
-Overfull \hbox (36.13387pt too wide) in paragraph at lines 595--596
- [][] 
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[22 <./thesis_files/figure-latex/mudag-1.pdf>]
+[19 <./thesis_files/figure-latex/mudag-1.pdf>]
 LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-600.
+561.
 (/Users/rachelledig/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [23 <./thesis_files/figure-latex/zidag-1.pdf>] [24
-
-]
+) [20 <./thesis_files/figure-latex/zidag-1.pdf>]
 Chapter 4.
-[25] [26] [27] [28
+[21
 
-]
-Overfull \hbox (28.89188pt too wide) in paragraph at lines 711--713
+] [22]
+<thesis_files/figure-latex/prioreffects-1.pdf, id=657, 469.755pt x 325.215pt>
+File: thesis_files/figure-latex/prioreffects-1.pdf Graphic file (type pdf)
+<use thesis_files/figure-latex/prioreffects-1.pdf>
+Package pdftex.def Info: thesis_files/figure-latex/prioreffects-1.pdf  used on 
+input line 645.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Overfull \hbox (36.13387pt too wide) in paragraph at lines 645--646
+ [][] 
+ []
+
+[23 <./thesis_files/figure-latex/prioreffects-1.pdf>] [24] [25] [26]
+Overfull \hbox (28.89188pt too wide) in paragraph at lines 738--740
  \T1/lmr/m/n/12 (-20) Ailao Moun-tains, Yun-nan, China, \T1/lmr/m/it/12 (-20) 6
 \T1/lmr/m/n/12 (-20) (2), 173--196. http://doi.org/[]10.14956/asafas.6.173[] 
  []
 
 
-Overfull \hbox (21.27386pt too wide) in paragraph at lines 720--722
+Overfull \hbox (21.27386pt too wide) in paragraph at lines 747--749
  [][]\T1/lmr/m/n/12 (-20) Comission, E. (2021). Eu-ro-stat Database. https://ec
 .europa.eu/eurostat/data/database. 
  []
 
 
-Underfull \hbox (badness 2418) in paragraph at lines 747--749
+Underfull \hbox (badness 2418) in paragraph at lines 774--776
  [][]\T1/lmr/m/n/12 (+20) Forseth, I. (2010). Ter-res-trial Biomes. \T1/lmr/m/i
 t/12 (+20) Na-ture Ed-u-ca-tion Knowl-edge\T1/lmr/m/n/12 (+20) .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 747--749
+Underfull \hbox (badness 10000) in paragraph at lines 774--776
  \T1/lmr/m/n/12 (+20) https://www.nature.com/scitable/knowledge/library/terrest
 rial-biomes-
  []
@@ -961,16 +959,17 @@ rial-biomes-
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[29
+[27
+
 
 ]
-Underfull \hbox (badness 1448) in paragraph at lines 765--767
+Underfull \hbox (badness 1448) in paragraph at lines 792--794
  [][]\T1/lmr/m/n/12 (+20) Hacking, I. (2001). \T1/lmr/m/it/12 (+20) An In-tro-d
 uc-tion to Prob-a-bil-ity and In-duc-tive Logic\T1/lmr/m/n/12 (+20) .
  []
 
 
-Overfull \hbox (102.55505pt too wide) in paragraph at lines 783--785
+Overfull \hbox (102.55505pt too wide) in paragraph at lines 810--812
  \T1/lmr/m/n/12 (-20) mate Im-pact Re-search. https://www.pik-potsdam.de/en/ins
 titute/departments/activities/biosphere-
  []
@@ -978,7 +977,7 @@ titute/departments/activities/biosphere-
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[30] [31] (./thesis.aux)
+[28] [29] (./thesis.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -986,26 +985,35 @@ LaTeX Warning: There were undefined references.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: A15A32C27AE37323CF244DE99533D4F3;5135.
+(rerunfilecheck)             Checksum: DFC6AA9E152EBDF983300DDDD367860C;3769.
  ) 
 Here is how much of TeX's memory you used:
- 15753 strings out of 480539
- 246002 string characters out of 5901471
- 582913 words of memory out of 5000000
- 32604 multiletter control sequences out of 15000+600000
- 484300 words of font info for 191 fonts, out of 8000000 for 9000
+ 15767 strings out of 480539
+ 246452 string characters out of 5901471
+ 584039 words of memory out of 5000000
+ 32599 multiletter control sequences out of 15000+600000
+ 484406 words of font info for 195 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,12n,69p,2299b,414s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,12n,69p,2299b,446s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{ref-ref} has been referenced but does not exist, 
 replaced by a fixed one
+
+pdfTeX warning (dest): name{ref-oakridgenationallaboratoryLandScanLandscanGloba
+l2014} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{ref-unitednationspopulationdivisionWorldPopulationP
+rospects2008} has been referenced but does not exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{ref-kleingoldewijkAnthropogenicLandUse2017} has bee
+n referenced but does not exist, replaced by a fixed one
 
 pdfTeX warning (dest): name{ref-douglascoxWaterQualityCrop2015} has been refere
 nced but does not exist, replaced by a fixed one
 
-{/Users/rachelledig/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/
-Users/rachelledig/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/Use
-rs/rachelledig/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/Us
-ers/rachelledig/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/U
+{/Users/rachelledig/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/U
+sers/rachelledig/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/
+Users/rachelledig/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{
+/Users/rachelledig/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/U
 sers/rachelledig/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}</User
 s/rachelledig/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></Use
 rs/rachelledig/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></Us
@@ -1017,10 +1025,10 @@ s/rachelledig/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri12.pfb></Use
 rs/rachelledig/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmro12.pfb></Us
 ers/rachelledig/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></U
 sers/rachelledig/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt12.pfb>
-Output written on thesis.pdf (47 pages, 2917653 bytes).
+Output written on thesis.pdf (45 pages, 2917811 bytes).
 PDF statistics:
- 886 PDF objects out of 1000 (max. 8388607)
- 786 compressed objects within 8 object streams
- 233 named destinations out of 1000 (max. 500000)
- 45347 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 876 PDF objects out of 1000 (max. 8388607)
+ 779 compressed objects within 8 object streams
+ 243 named destinations out of 1000 (max. 500000)
+ 43251 words of extra memory for PDF output out of 51595 (max. 10000000)
 
