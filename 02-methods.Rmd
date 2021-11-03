@@ -17,7 +17,7 @@ library(ggplot2)
 library(rnaturalearth)
 
 #change this if need be
-setwd("/Volumes/RachelExternal2/Thesis/Masters_thesis")
+setwd("/Volumes/RachelExternal2/Thesis/Master_Thesis")
 ```
 
 # Methods {#methods}
@@ -105,7 +105,7 @@ read.csv(file = "data/aei_nocrop.csv") %>%
   dplyr::select(lat, lon, rugged) %>% 
   unique() %>% 
   ggplot() + 
-  geom_tile(aes(x=lon,y=lat,fill=rugged)) +
+  geom_tile(aes(x=lon,y=lat,fill=(rugged/max(rugged)))) +
   scale_fill_viridis_c() +
   geom_polygon(data=world,aes(x=long, y=lat, group=group), 
                colour="black", fill="white", alpha=0)+
@@ -123,6 +123,8 @@ read.csv(file = "data/aei_nocrop.csv") %>%
 ```
 
 ### Social Influences: Population Density {#popdens}
+
+To encapsulate the
 
 #### History Database of the Global Environment {#HYDE}
 
