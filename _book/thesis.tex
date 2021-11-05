@@ -392,6 +392,8 @@ In Figure \ref{fig:TRI} the Terrain Ruggedness Index for the study region can be
 \hypertarget{maddison}{%
 \paragraph{Maddison Project Database}\label{maddison}}
 
+The Maddison Project Database was developed by University of Groningen to document and track global historical economic trends to gain a better understanding of the drivers behind periods of global economic growth and stagnation (\protect\hyperlink{ref-boltMaddisonStyleEstimates2020}{Bolt \& van Zanden, 2020}). The most recent update includes histroical data for more than 160 countries. Using data collected from a variety of sources, the Maddison Project Database presents estimates of income, represented as Gross Domestic Product per capita, and the subsequent total population used to calculate income on a per person basis. Yearly estimates are provided on a per country basis, although due to data availability, estimates for some years (mainly prior to 1960) are not complete for all countries (\protect\hyperlink{ref-boltRebasingMaddisonNew2018}{Bolt, Inklaar, de Jong, \& van Zanden, 2018}). In order to standardize methods of estimations across time and space, the most current version of the Maddison database relies on the extrapolation method to to determine yearly estimates. The total and per capita GDP were selected from benchmark year of 1990 and then estimates forwards and backwards are made based on growth rates from country national accounts (or other growth estimates). These estimates are then tested against independent benchmarks where they exist (\protect\hyperlink{ref-boltMaddisonStyleEstimates2020}{Bolt \& van Zanden, 2020}).
+
 \hypertarget{description}{%
 \paragraph{Description}\label{description}}
 
@@ -401,10 +403,10 @@ In Figure \ref{fig:TRI} the Terrain Ruggedness Index for the study region can be
 \hypertarget{BRdemo}{%
 \paragraph{Bjørnskov-Rode Regime Data}\label{BRdemo}}
 
+The Bjørnskov-Rode Regime Data developed by \protect\hyperlink{ref-bjornskovRegimeTypesRegime2018}{Bjørnskov \& Rode} (\protect\hyperlink{ref-bjornskovRegimeTypesRegime2018}{2018}) presents a data set of political governance regimes and regime changes for 192 countries and 16 self governing territories between 1950 and 2016, including data regarding periods of colonial control, which other datasets such as \protect\hyperlink{ref-centerforsystemicpeacePolityProjectPolity2020}{Center for Systemic Peace} (\protect\hyperlink{ref-centerforsystemicpeacePolityProjectPolity2020}{2020}) do not include. The Bjørnskov-Rode Regime Dataset classifies governmental regimes t
+
 \hypertarget{description-1}{%
 \paragraph{Description}\label{description-1}}
-
-The base dataset used for this thesis was constructed as an input for LPJmL. A combination of global irrigation patterns from t(\protect\hyperlink{ref-schaphoffLPJmL4DynamicGlobal2018}{Schaphoff et al., 2018}). This dataset was then fed into LPJmL to and used to derive different variables including irrigation, cropland, and crop fraction on a per grid cell basis.
 
 \hypertarget{lpjml-data}{%
 \subsection{LPJmL Data}\label{lpjml-data}}
@@ -424,9 +426,9 @@ The base dataset used for this thesis was constructed as an input for LPJmL. A c
 \hypertarget{the-history-database-of-the-global-environment-hyde}{%
 \paragraph{The History Database of the Global Environment (HYDE)}\label{the-history-database-of-the-global-environment-hyde}}
 
-The History Database of the Global Environment (HYDE) was first developed by \protect\hyperlink{ref-kleingoldewijkHundredYear18901997}{Klein Goldewijk \& Battjes} (\protect\hyperlink{ref-kleingoldewijkHundredYear18901997}{1997}) to better understand and map historical land use patterns anthropogenic activities. Several updates to this dataset have taken place since the publication of the original dataset and currently HYDE Version 3.2 currently includes population estimates and land use patterns for the entirety of the Holocene, which spans the last 12,000 years (\protect\hyperlink{ref-kleingoldewijkAnthropogenicLandUse2017}{\textbf{kleingoldewijkAnthropogenicLandUse2017?}}).
+The History Database of the Global Environment (HYDE) was first developed by \protect\hyperlink{ref-kleingoldewijkHundredYear18901997}{C. Klein Goldewijk \& Battjes} (\protect\hyperlink{ref-kleingoldewijkHundredYear18901997}{1997}) to better understand and map historical land use patterns anthropogenic activities. Several updates to this dataset have taken place since the publication of the original dataset and currently HYDE Version 3.2 currently includes population estimates and land use patterns for the entirety of the Holocene, which spans the last 12,000 years (\protect\hyperlink{ref-kleingoldewijkAnthropogenicLandUse2017}{K. Klein Goldewijk, Beusen, Doelman, \& Stehfest, 2017}).
 
-For the study period (1960-2005) of this masters thesis, estimates of total population were collected from the United Nations World Populations Prospects (\protect\hyperlink{ref-unitednationspopulationdivisionWorldPopulationProspects2008}{\textbf{unitednationspopulationdivisionWorldPopulationProspects2008?}}). Then this data is harmonized with world wide spatial population patterns from Land Scan (\protect\hyperlink{ref-oakridgenationallaboratoryLandScanLandscanGlobal2014}{\textbf{oakridgenationallaboratoryLandScanLandscanGlobal2014?}}) which shows global population density at a 1km resolution and was used to allocate population totals to each available administrative unit (\protect\hyperlink{ref-kleingoldewijkAnthropogenicLandUse2017}{\textbf{kleingoldewijkAnthropogenicLandUse2017?}}). Population data was then harmonized resulting in a final data product that yields population density, and other important land use data, on a 0.5° x 0.5° latitude longitude global grid.
+For the study period (1960-2005) of this masters thesis, estimates of total population were collected from the United Nations World Populations Prospects (\protect\hyperlink{ref-unitednationspopulationdivisionWorldPopulationProspects2008}{Division, 2008}). Then this data is harmonized with world wide spatial population patterns from Land Scan (\protect\hyperlink{ref-oakridgenationallaboratoryLandScanLandscanGlobal2014}{Laboratory, 2014}) which shows global population density at a 1km resolution and was used to allocate population totals to each available administrative unit (\protect\hyperlink{ref-kleingoldewijkAnthropogenicLandUse2017}{K. Klein Goldewijk, Beusen, Doelman, \& Stehfest, 2017}). Population data was then harmonized resulting in a final data product that yields population density, and other important land use data, on a 0.5° x 0.5° latitude longitude global grid.
 
 The HYDE population density estimates were then used as an input to LPJmL
 
@@ -460,7 +462,7 @@ Data for global historical irrigation patterns was collected from the Global His
 
 To amass this data \protect\hyperlink{ref-siebertGlobalDataSet2015}{Stefan Siebert et al.} (\protect\hyperlink{ref-siebertGlobalDataSet2015}{2015}) used a variety of sources to collect national and subnational statistics including FAOSTAT (\protect\hyperlink{ref-faoFAOSTAT2021}{FAO, 2021b}), EuroStat (\protect\hyperlink{ref-europeancomissionEurostatDatabase2021}{Comission, 2021}), and Aquastat (\protect\hyperlink{ref-faoAQUASTAT2021}{FAO, 2021a}) along with other less collected sources like census data and statistical yearbooks. Data was recorded for 10 year timesteps until 1980 and five year timesteps until the termination of the study period in 2005. Data for the period prior to 1950 and for the year 2005 has higher levels of uncertainty in the measurements when compared to the data between 1950 and 2005, as irrigation data from international organizations (e.g.~FAO) were unavailable prior and post. After collection the data was harmonized and downscaled to a 5 arcmin resolution. Special care was taken to ensure that high resolution data (at a 5 arcmin resolution) could be accurately summed to the subnational level, ensuring accuracy at different resolutions. In addition, the authors note that validation of this dataset was not possible due to the fact that all available data was used as input to create the HID (\protect\hyperlink{ref-siebertGlobalDataSet2015}{Stefan Siebert et al., 2015}).
 
-The HID, in combination with other datasets such the History Database of the Global Environment ( \protect\hyperlink{ref-kleingoldewijkHundredYear18901997}{Klein Goldewijk \& Battjes} (\protect\hyperlink{ref-kleingoldewijkHundredYear18901997}{1997}), see Section \ref{HYDE}) and Climate Research Unit Time Series Data ( \protect\hyperlink{ref-universityofeastangliaclimaticresearchunitVersionCRUTS2021}{University of East Anglia Climatic Research Unit, Harris, Osborn, \& Jones} (\protect\hyperlink{ref-universityofeastangliaclimaticresearchunitVersionCRUTS2021}{2021}), see Section (\protect\hyperlink{ref-ref}{\textbf{ref?}})(CRU)) were used was then fed into the LPJmL model. The Lund-Potsdam-Jena managed Land (LPJmL) is a Dynamic Global Vegetation Model which simulates the global terrestrial carbon cycle and the corresponding response of vegetation patterns, both natural and managed, under a given set of climactic conditions (\protect\hyperlink{ref-schaphoffLPJmL4DynamicGlobal2018}{Schaphoff et al., 2018}). Spatially and temporally explicit data regarding climate, landuse patterns, and anthropogenic activities among others is fed into the model and used to simulate, via the LPJmL's established biophysiological interconnections, a multitude of processes and outcome that relate to global vegetation patterns and carbon cycles(\protect\hyperlink{ref-pikLPJmLLundPotsdamJenaManaged}{PIK, n.d.}). For the purposes of this masters thesis, a global irrigation pattern represented by percentage of irrigated area per cell at a 0.5° x 0.5° latitude longitude global grid cell resolution with yearly observations for a period of 1960 to 2005 was extracted from the LPJmL model .
+The HID, in combination with other datasets such the History Database of the Global Environment ( \protect\hyperlink{ref-kleingoldewijkHundredYear18901997}{C. Klein Goldewijk \& Battjes} (\protect\hyperlink{ref-kleingoldewijkHundredYear18901997}{1997}), see Section \ref{HYDE}) and Climate Research Unit Time Series Data ( \protect\hyperlink{ref-universityofeastangliaclimaticresearchunitVersionCRUTS2021}{University of East Anglia Climatic Research Unit, Harris, Osborn, \& Jones} (\protect\hyperlink{ref-universityofeastangliaclimaticresearchunitVersionCRUTS2021}{2021}), see Section (\protect\hyperlink{ref-ref}{\textbf{ref?}})(CRU)) were used was then fed into the LPJmL model. The Lund-Potsdam-Jena managed Land (LPJmL) is a Dynamic Global Vegetation Model which simulates the global terrestrial carbon cycle and the corresponding response of vegetation patterns, both natural and managed, under a given set of climactic conditions (\protect\hyperlink{ref-schaphoffLPJmL4DynamicGlobal2018}{Schaphoff et al., 2018}). Spatially and temporally explicit data regarding climate, landuse patterns, and anthropogenic activities among others is fed into the model and used to simulate, via the LPJmL's established biophysiological interconnections, a multitude of processes and outcome that relate to global vegetation patterns and carbon cycles(\protect\hyperlink{ref-pikLPJmLLundPotsdamJenaManaged}{PIK, n.d.}). For the purposes of this masters thesis, a global irrigation pattern represented by percentage of irrigated area per cell at a 0.5° x 0.5° latitude longitude global grid cell resolution with yearly observations for a period of 1960 to 2005 was extracted from the LPJmL model .
 
 \hypertarget{irrfracdesc}{%
 \paragraph{Description}\label{irrfracdesc}}
@@ -744,8 +746,23 @@ Angelakis, A. N., Zaccaria, D., Krasilnikoff, J., Salgot, M., Bazza, M., Roccaro
 \leavevmode\hypertarget{ref-bjornebergIRRIGATIONMethods2013}{}%
 Bjorneberg, D. L. (2013). {IRRIGATION} \textbar{} {Methods}. In \emph{Reference {Module} in {Earth Systems} and {Environmental Sciences}}. {Elsevier}. http://doi.org/\href{https://doi.org/10.1016/B978-0-12-409548-9.05195-2}{10.1016/B978-0-12-409548-9.05195-2}
 
+\leavevmode\hypertarget{ref-bjornskovRegimeTypesRegime2018}{}%
+Bjørnskov, C., \& Rode, M. (2018). Regime {Types} and {Regime Change}: A {New Dataset}. \emph{SSRN Electronic Journal}. http://doi.org/\href{https://doi.org/10.2139/ssrn.3234263}{10.2139/ssrn.3234263}
+
+\leavevmode\hypertarget{ref-boltRebasingMaddisonNew2018}{}%
+Bolt, J., Inklaar, R., de Jong, H., \& van Zanden, J. L. (2018). Rebasing '{Maddison}': New {Income Comparisons} and the {Shape} of {Long}-run {Econonomic Development}, 69.
+
+\leavevmode\hypertarget{ref-boltMaddisonStyleEstimates2020}{}%
+Bolt, J., \& van Zanden, J. L. (2020). Maddison style estimates of the evolution of the world economy. {A} new 2020 update, 44.
+
+\leavevmode\hypertarget{ref-centerforsystemicpeacePolityProjectPolity2020}{}%
+Center for Systemic Peace. (2020, April). Polity {Project}: Polity 5 {Dataset}.
+
 \leavevmode\hypertarget{ref-europeancomissionEurostatDatabase2021}{}%
 Comission, E. (2021). Eurostat {Database}. https://ec.europa.eu/eurostat/data/database.
+
+\leavevmode\hypertarget{ref-unitednationspopulationdivisionWorldPopulationProspects2008}{}%
+Division, U. N. P. (2008). World {Population Prospects}, {The} 2007 {Revision}.
 
 \leavevmode\hypertarget{ref-faoStateWorldLand2011}{}%
 FAO. (2011). \emph{The state of the world's land and water resources for food and agriculture ({SOLAW}) {} {Managing} systems at risk}. {Rome and London}: {FAO and Earthscan}.
@@ -798,8 +815,14 @@ Holzapfel, E. A., \& Mariño, M. A. (2008). Irrigation in {Agriculture}. In S. E
 \leavevmode\hypertarget{ref-kleingoldewijkHundredYear18901997}{}%
 Klein Goldewijk, C., \& Battjes, J. (1997). A {Hundred Year} (1890 - 1990) {Database} for {Integrated Environmental Assessments} ({HYDE}, version 1.1). \emph{PBL Netherlands Environmental Assessment Agency}.
 
+\leavevmode\hypertarget{ref-kleingoldewijkAnthropogenicLandUse2017}{}%
+Klein Goldewijk, K., Beusen, A., Doelman, J., \& Stehfest, E. (2017). Anthropogenic land use estimates for the {Holocene} {} {HYDE} 3.2. \emph{Earth System Science Data}, \emph{9}(2), 927--953. http://doi.org/\href{https://doi.org/10.5194/essd-9-927-2017}{10.5194/essd-9-927-2017}
+
 \leavevmode\hypertarget{ref-kurzStatisticalRethinkingBrms2019}{}%
 Kurz, A. S. (2019). \emph{Statistical {Rethinking} with brms, Ggplot2, and the tidyverse}.
+
+\leavevmode\hypertarget{ref-oakridgenationallaboratoryLandScanLandscanGlobal2014}{}%
+Laboratory, O. R. N. (2014). {LandScan}: Landscan {Global Population Database}, {The} 2012 {Revision}. https://landscan.ornl.gov/.
 
 \leavevmode\hypertarget{ref-mcelreathStatisticalRethinkingBayesian2020}{}%
 McElreath, R. (2020). \emph{Statistical {Rethinking}: A {Bayesian Course} with {Examples} in {R} and {STAN}} (Second). {Chapman and Hall/CRC}.
