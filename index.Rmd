@@ -141,8 +141,6 @@ Alternatively, you can put that content in files like 00--prelim.Rmd and
 
 The practice of irrigation, and its subsequent impacts, have far reaching effects for the global economy, food and water supply, and environment. Irrigated land accounts for 20% of the global cultivated land area which derives 40% of the global food supply [@neumannExploringGlobalIrrigation2011, @portmannMIRCA2000GlobalMonthly2010a], 70% of water withdrawls from ground water aquifers are used for irrigation [@faoStateWorldLand2011], and
 
-## Objectives {#objectives}
-
 Ultimately, the agricultural system will continue to demand more water while competing with other sectors over decreasing water availability in the coming years. With this pressure, farmers will aim to be as efficient as possible by increasing their yields which, in certain areas and under certain conditions, can be done by irrigating their fields. Understanding where, when, and why farmers decide to begin irrigating is important to understand water demands now and in the future. Unfortunately, irrigation expansion is seldom studied, with few studies using statistical modeling techniques to investigate the role that biophysical, economic, and political factors play in the spread of irrigation infrastructure in the present. None do so historically. This leads to the first and overarching research question:
 
 <center>

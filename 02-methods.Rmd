@@ -3,7 +3,7 @@ bibliography: references.bib
 ---
 
 ```{r include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, fig.align = "center")
 ```
 
 ```{r admin}
@@ -15,6 +15,7 @@ library(ggmap)
 library(raster)
 library(ggplot2)
 library(rnaturalearth)
+library(tidyr)
 
 #change this if need be
 setwd("/Volumes/RachelExternal2/Thesis/Master_Thesis")
@@ -22,11 +23,50 @@ setwd("/Volumes/RachelExternal2/Thesis/Master_Thesis")
 
 # Methods {#methods}
 
+## Study Region {#studyreg}
+
+To be able to investigate the patterns of global historical irrigation expansion, the initial proposed study area encompassed the entirely of the globe's terrestrial land mass with recorded observations detailing every year for the 45-year study period. This constituted a data set of roughly three million observations. In an effort to decrease computation time, a logical reduction of the study area (and therefore data) was necessary.
+
+Figure \@ref(fig:irrfrac-2005) illustrates the pattern of irrigation at the last time step (2005) of the study period. It is notable that irrigation does not exist at all in some places such as the higher latitudes and the Sahara. These areas also contain no cropland, no managed grasslands, and no pastureland. Upon the logic that irrigation cannot expand into areas that contain no agricultural land (whether it be cropland, grassland, or pasture land), all cells which contained no agricultural land over the the course of the study period were removed, giving rise to the study area you see in figure \@ref(fig:study-region-nocrop).
+
+```{r study-region-nocrop, fig.cap="Final study area after the removal of cells with no agricultural land over the course of the 45 year study period. Colors represent regional groupings. Notice that excluded areas are located within the Amazon, the Sahara, Central Africa, the Middle East, Eastern China, and toward the Arctic Circle (represented at 60 degrees North with a red horozontal line). ", fig.scap="Study Area"}
+
+world <- map_data("world") 
+
+read.csv(file = "data/aei_2005.csv") %>% 
+ggplot() + 
+  geom_tile(aes(x=lon,y=lat,fill=eight_regions)) +
+  scale_fill_viridis_d(labels = c("North Africa", 
+                                  "Sub-Saharan Africa", 
+                                  "North America", 
+                                  "South America", 
+                                  "West Asia",
+                                  "East Asia Pacific",
+                                  "Eastern Eurpe",
+                                  "Western Europe"), 
+                       name = "Region") + 
+  geom_polygon(data=world,aes(x=long, y=lat, group=group), 
+               colour="black", fill="white", alpha=0) + 
+  geom_hline(yintercept = 60, color = "red") +
+  theme_minimal()+
+  theme(
+  legend.position = "bottom",
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+    axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank()
+  )
+```
+
 ## Data {#data}
 
-To appropriately choose data that encapsulates the concepts and relationships described in Section \@ref(drivers) the following datasets and variables were collected and selected. It should be noted that many of these datasets contain more than one variable that would conceptually represent the links between expanding irrigation and various drivers. The predictors presented below were selected based on various reasons including data availability (both spatially and temporally) and conceptual fidelity. For more information on all potential variables please see Appendix Section \@ref(predselect).
+To appropriately choose data that encapsulates the concepts and relationships described in Section \@ref(drivers) the following datasets and variables were collected and selected. It should be noted that many of these datasets contain more than one variable that would conceptually represent the links between expanding irrigation and various drivers. The predictors presented below were selected in an iterative model building process for various reasons including data availability (both spatially and temporally), modeling constraints, and conceptual fidelity. For more information on all potential variables please see Appendix Section \@ref(predselect).
 
-Data from various sources was used in this masters thesis. The primary variable of interest, irrigation fraction, along with several other predictor variable were used as input for or were extracted from the Lund-Potsdam-Jena managed Land (LPJmL) model. Detailed descriptions of the acquisition of all data sets are in the sections to follow.
+The primary variable of interest in this masters thesis, irrigation fraction, along with several other predictor variable were used as input for or were extracted from the Lund-Potsdam-Jena managed Land (LPJmL) model. Other datasets for various predictors were gathered from datasets external to those used in LPJmL. Detailed descriptions of the acquisition of all data sets are in the sections to follow.
 
 ### External Data
 
@@ -40,29 +80,30 @@ In order to explain the relationship between topography and irrigation expansion
 
 ##### Terrain Ruggedness Index {#TRI}
 
-The Terrain Ruggedness Index (TRI) was developed by @rileyTerrainRuggednessIndex1999 initially to be used to analyze the effects of topography on species habitats and behaviors. The authors developed a simple method to calculate the heterogeneity of a given area using DEMs. To do so the sum change in elevation is calculated for a cell and its eight nearest neighbors. These individual cell level TRIs can then be averaged for a given region, in this thesis's case, a country [@rileyTerrainRuggednessIndex1999 ]. Adapted from @rileyTerrainRuggednessIndex1999, a representation of how TRI scores are calculated for differing types of terrain.
+The Terrain Ruggedness Index (TRI) was developed by @rileyTerrainRuggednessIndex1999 initially to be used to analyze the effects of topography on species habitats and behaviors. The authors developed a simple method to calculate the heterogeneity of a given area using DEMs. To do so, the sum change in elevation is calculated between a cell and the elevation of its eight nearest neighbors. These individual cell level TRIs can then be averaged for a given region, in this thesis's case, a country [@rileyTerrainRuggednessIndex1999]. Adapted from @rileyTerrainRuggednessIndex1999, a representation of different topography types and the respective TRI scores is displayed in \@ref(fig:tricalc). The exact dataset used for country level TRI is from @nunnRuggednessBlessingBad2012.
 
-<!--# Insert the calcluation of TRI here -->
+```{r tricalc, fig.scap= "Example calculations of Terrain Ruggedness Index (TRI) for differing geographies.", fig.cap= "TRI values a) peak geography, b) bowl geography, c) rolling hill geography. Values presented in the tables represent elevations. Notice that for both a) and b) the TRI is the same despite very different geography, but both values are much higher than c) which is a more homogenous landscape.", out.width = "75%"}
+knitr::include_graphics("figure/TRI_calc.png")
+```
 
 ##### Description {#ruggeddesc}
 
-In Figure \@ref(fig:TRI) the Terrain Ruggedness Index for the study region can be see. Higher values indicate countries with more topographical heterogeneity, and lower values represent less. As you can see
+In Figure \@ref(fig:TRI) the Terrain Ruggedness Index for the study region can be see. Higher values indicate countries with more topographical heterogeneity, and lower values represent less.
 
-```{r TRI, fig.cap="Terrain Ruggedness Index for the study area. TRI values "}
-
+```{r TRI, fig.scap="Terrain Ruggedness Index values for the study area.", fig.cap= "TRI values on a country level basis. "}
 
 world <- map_data("world") 
 
-read.csv(file = "data/aei_nocrop.csv") %>% 
-  dplyr::select(lat, lon, rugged) %>% 
-  unique() %>% 
+read.csv(file = "data/aei_2005.csv") %>% 
   ggplot() + 
   geom_tile(aes(x=lon,y=lat,fill=rugged)) +
-  scale_fill_viridis_c() +
+  scale_fill_viridis_c(name = "Terrain \nRuggedness \nIndex", 
+                       direction = -1) +
   geom_polygon(data=world,aes(x=long, y=lat, group=group), 
                colour="black", fill="white", alpha=0)+
   theme_minimal()+
-  theme(
+  theme(legend.position = "bottom",
+        legend.key.width=unit(2,"cm"),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
     axis.title.x=element_blank(),
@@ -86,11 +127,61 @@ The Maddison Project Database was developed by University of Groningen to docume
 
 ##### Bjørnskov-Rode Regime Data {#BRdemo}
 
-The Bjørnskov-Rode Regime Data developed by @bjornskovRegimeTypesRegime2018 presents a data set of political governance regimes and regime changes for 192 countries and 16 self governing territories between 1950 and 2016, including data regarding periods of colonial control, which other datasets such as @centerforsystemicpeacePolityProjectPolity2020 do not include. The Bjørnskov-Rode Regime Dataset classifies governmental regimes t
+The Bjørnskov-Rode Regime Data developed by @bjornskovRegimeTypesRegime2018 presents a data set of political governance regimes and regime changes for 192 countries and 16 self governing territories between 1950 and 2016, including data regarding periods of colonial control, which other well known datasets such as @centerforsystemicpeacePolityProjectPolity2020 used in @neumannExploringGlobalIrrigation2011 do not include. The Bjørnskov-Rode Regime Dataset classifies governmental regimes into democratic and non democratic categories, each with three classifications, giving rise to six different political regimes.
+
++--------------------------------------+-------------------------------------------------+
+| Democracies                          | Non-Democracies                                 |
++======================================+=================================================+
+| Parliamentary Democracies            | Civilian Autocracies (Leader w/o military rank) |
++--------------------------------------+-------------------------------------------------+
+| Mixed Democracies (w/weak president) | Military Dictatorships (Leader w/military rank) |
++--------------------------------------+-------------------------------------------------+
+| Presidential Democracies             | Royal Dictatorships                             |
++--------------------------------------+-------------------------------------------------+
+
+In addition, a classification for "Colony" (i.e. most often "Former Colony") was created to better understand understand the relationship between external governance and irrigation fraction.
 
 ##### Description
 
+A representation of governance regimes for the study area in the last period of the study period can be seen in Figure \@ref(fig:demo2005) below.
+
+```{r demo2005, fig.scap= "Governance regimes of the study area in 2005.", fig.cap="The political systems of the study area in the last year of the study period (2005). "}
+
+world <- map_data("world") 
+
+read.csv(file = "data/aei_2005.csv") %>% 
+  mutate(DD.regime = as.factor(DD.regime)) %>% 
+  drop_na(DD.regime) %>% 
+  ggplot() + 
+  geom_tile(aes(x=lon,y=lat,fill= DD.regime)) +
+  scale_fill_viridis_d(labels=c("Parliamentary \nDemocracy", 
+                                "Mixed \nDemocracy", 
+                                "Presidential \nDemocracy", 
+                                "Civilian \nAutocracy", 
+                                "Military \nDictatorship", 
+                                "Royal \nDictatorship", 
+                                "Former \nColony" ), 
+                       name = "Regime") +
+  geom_polygon(data=world,aes(x=long, y=lat, group=group), 
+               colour="black", fill="white", alpha=0)+
+  theme_minimal()+
+  theme(legend.position = "bottom",
+        legend.key.size = unit(0.75, "cm"),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+    axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank()
+  )
+
+```
+
 ### LPJmL Data
+
+The Lund-Potsdam-Jena managed Land (LPJmL) is a Dynamic Global Vegetation Model which simulates the global terrestrial carbon cycle and the corresponding response of vegetation patterns, both natural and managed, under a given set of climactic conditions [@schaphoffLPJmL4DynamicGlobal2018]. Spatially and temporally explicit data regarding climate, landuse patterns, and anthropogenic activities among others is fed into the model and used to simulate, via the LPJmL's established biophysiological interconnections, a multitude of processes and outcomes that relate to global vegetation patterns and carbon cycles[@pikLPJmLLundPotsdamJenaManaged]. Four predictor variables were used as input for or were extracted from the LPJmL model. They are detailed in the section below.
 
 #### Compatibility: Distance to the Next Irrigated Cell {#dist}
 
@@ -110,7 +201,35 @@ The HYDE population density estimates were then used as an input to LPJmL
 
 ##### Description {#popdensdesc}
 
-A description of population density estimates from
+A description of population density estimates from the year 2005 are represented in Figure \@ref(fig:popdens2005).
+
+```{r popdens2005, fig.cap="Population density in the year 2005 represented as people per square kilometer. Note that the scale is logarithmic and areas where population density equals 0, i.e. there are no inhabitants, is represented with in grey/yellow.", fig.scap= "Population density pattern in 2005."}
+world <- map_data("world") 
+
+read.csv(file = "data/aei_2005.csv") %>% 
+  ggplot() + 
+  geom_tile(aes(x=lon,y=lat,fill= popdens)) +
+  scale_fill_viridis_c(direction = -1, 
+                       trans = "log",
+                       na.value = "cornsilk2",
+                       breaks = c(1, 8, 64, 512, 2048),
+                       name=expression("Population Density per"~km^2)) +
+  geom_polygon(data=world,aes(x=long, y=lat, group=group), 
+               colour="black", fill="white", alpha=0)+
+  theme_minimal()+
+  theme(legend.position = "bottom",
+        legend.key.width=unit(2,"cm"),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+    axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank()
+  )
+
+```
 
 #### Water: Precipitation {#precip}
 
@@ -123,6 +242,30 @@ Data for precipitation was collected from the Climate Research Unit of the Unive
 <!--# What happened in LPJmL here!! -->
 
 ##### Description {#precipdesc}
+
+```{r precip2005, fig.cap="Precipitation pattern in 2005. Precipitation was summed from monthly values "}
+world <- map_data("world") 
+
+read.csv(file = "data/aei_2005.csv") %>% 
+  ggplot() + 
+  geom_tile(aes(x=lon,y=lat,fill=precip)) +
+  scale_fill_viridis_c(name = "Precipitation (mm/year)", 
+                       direction = -1) +
+  geom_polygon(data=world,aes(x=long, y=lat, group=group), 
+               colour="black", fill="white", alpha=0)+
+  theme_minimal()+
+  theme(legend.position = "bottom",
+        legend.key.width=unit(2,"cm"),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+    axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank()
+  )
+```
 
 Below
 
@@ -138,7 +281,7 @@ Data for global historical irrigation patterns was collected from the Global His
 
 To amass this data @siebertGlobalDataSet2015 used a variety of sources to collect national and subnational statistics including FAOSTAT [@faoFAOSTAT2021], EuroStat [@europeancomissionEurostatDatabase2021], and Aquastat [@faoAQUASTAT2021] along with other less collected sources like census data and statistical yearbooks. Data was recorded for 10 year timesteps until 1980 and five year timesteps until the termination of the study period in 2005. Data for the period prior to 1950 and for the year 2005 has higher levels of uncertainty in the measurements when compared to the data between 1950 and 2005, as irrigation data from international organizations (e.g. FAO) were unavailable prior and post. After collection the data was harmonized and downscaled to a 5 arcmin resolution. Special care was taken to ensure that high resolution data (at a 5 arcmin resolution) could be accurately summed to the subnational level, ensuring accuracy at different resolutions. In addition, the authors note that validation of this dataset was not possible due to the fact that all available data was used as input to create the HID [@siebertGlobalDataSet2015].
 
-The HID, in combination with other datasets such the History Database of the Global Environment ( @kleingoldewijkHundredYear18901997, see Section \@ref(HYDE)) and Climate Research Unit Time Series Data ( @universityofeastangliaclimaticresearchunitVersionCRUTS2021, see Section @ref(CRU)) were used was then fed into the LPJmL model. The Lund-Potsdam-Jena managed Land (LPJmL) is a Dynamic Global Vegetation Model which simulates the global terrestrial carbon cycle and the corresponding response of vegetation patterns, both natural and managed, under a given set of climactic conditions [@schaphoffLPJmL4DynamicGlobal2018]. Spatially and temporally explicit data regarding climate, landuse patterns, and anthropogenic activities among others is fed into the model and used to simulate, via the LPJmL's established biophysiological interconnections, a multitude of processes and outcome that relate to global vegetation patterns and carbon cycles[@pikLPJmLLundPotsdamJenaManaged]. For the purposes of this masters thesis, a global irrigation pattern represented by percentage of irrigated area per cell at a 0.5° x 0.5° latitude longitude global grid cell resolution with yearly observations for a period of 1960 to 2005 was extracted from the LPJmL model .
+The HID, in combination with other datasets such the History Database of the Global Environment ( @kleingoldewijkHundredYear18901997, see Section \@ref(HYDE)) and Climate Research Unit Time Series Data ( @universityofeastangliaclimaticresearchunitVersionCRUTS2021, see Section @ref(CRU)) were used was then fed into the LPJmL model. For the purposes of this masters thesis, a global irrigation pattern represented by percentage of irrigated area per cell at a 0.5° x 0.5° latitude longitude global grid cell resolution with yearly observations for a period of 1960 to 2005 was extracted from the LPJmL model .
 
 ##### Description {#irrfracdesc}
 
@@ -150,14 +293,51 @@ Levels of irrigation vary widely both geographically and temporally. In Figure \
 
 <!-- Comment this out when knitting to Gitbook. -->
 
-```{r irrfrac2005, fig.cap = "Percentage of a cell's area covered by land equipped for irrigation. Represents the global irrigation pattern at a 0.5° x 0.5° latitude longitude grid cell resolution for the last year of the study period (2005).", out.width= "1000px", echo=FALSE}
+```{r irrfrac2005, fig.cap = "Percentage of a cell's area covered by land equipped for irrigation. Represents the global irrigation pattern at a 0.5° x 0.5° latitude longitude grid cell resolution for the last year of the study period (2005).", out.width = "100%", echo=FALSE, fig.scap= "Irrigation fraction per grid cell of the study area in 2005."}
+world <- map_data("world") 
 
-knitr::include_graphics("figure/irrfrac2005.png")
+breaks <- c(0, 0.1, 1, 5, 10, 20, 35, 50, 75, 100)
+cols <- c("#FFFFFF","#FDE725FF","#B4DE2CFF","#6DCD59FF","#35B779FF", "#1F9E89FF", "#26828EFF","#31688EFF","#3E4A89FF", "#482878FF","#440154FF") #brute force viridis
+
+read.csv(file = "data/aei_2005.csv") %>% 
+  ggplot() + 
+  geom_tile(aes(x=lon,y=lat,fill= irrfrac*100)) +
+  scale_fill_stepsn(colours = cols,
+                    breaks = breaks,
+                    name = "Percentage of irrigated area \nper grid cell") +
+  geom_polygon(data=world,aes(x=long, y=lat, group=group), 
+               colour="black", fill="white", alpha=0) +
+  theme_minimal()+
+  theme(legend.position = "bottom",
+        legend.key.width=unit(2,"cm"),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+    axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank()
+  )
 ```
 
 There are several "hotspots" of irrigation that occur, predominantly in the interior of the United States, north of India, Bangladesh, and Eastern China in which more than 30% of a cell is irrigated area. Otherwise, generally irrigation, where it exists, a small minority of cell area. No irrigation occurs in some places including towards arctic circle and in the Sahara, among other places.
 
 When looking at the histogram of the data distribution of the target variable, irrigation fraction, it is clear to see that the data includes many zeros.
+
+```{r irrfrachist, fig.cap="Histogram of the outcome variable, Irrigation Fraction (IF).", fig.scap="Histogram of the outcome variable, Irrigation Fraction (IF) for the entirety of the study region and period (1960 to 2005)."}
+read.csv(file = "data/aei_nocrop.csv") %>% 
+ ggplot(aes(x=irrfrac)) +
+  geom_histogram(bins = 100) +
+  theme_minimal() + 
+  xlab("Irrigation Fraction (% irrigated area per grid cell)") +
+  theme(legend.position = "none",
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank())
+```
 
 ## Hypothesis {#hypothesis}
 
@@ -180,53 +360,23 @@ For the presence or absence of irrigation, the following hypothesis are proposed
 3.  A **decrease in precipitation** will result in an **increase in irrigated cells.**
 4.  An **increase in income (GDP per capita)** will result in an **increase of irrigated cells.**
 
-## Study Region {#studyreg}
-
-To be able to investigate the patterns of global historical irrigation expansion, the initial proposed study area encompassed the entirely of the globe's terrestrial land mass with recorded observations detailing every year for the 45-year study period. This constituted a data set of roughly three million observations. In an effort to decrease computation time, a logical reduction of the study area (and therefore data) was necessary.
-
-Figure \@ref(fig:irrfrac-2005) illustrates the pattern of irrigation at the last time step (2005) of the study period. It is notable that irrigation does not exist at all in some places such as the higher latitudes and the Sahara. These areas also contain no cropland, no managed grasslands, and no pastureland. Upon the logic that irrigation cannot expand into areas that contain no agricultural land (whether it be cropland, grassland, or pasture land), all cells which contained no agricultural land over the the course of the study period were removed, giving rise to the study area you see in figure \@ref(fig:study-region-nocrop).
-
-```{r study-region-nocrop, fig.cap="Final study area after the removal of cells with no agricultural land over the course of the 45 year study period. Colors represent regional groupings. Notice that excluded areas are located within the Amazon, the Sahara, Central Africa, the Middle East, Eastern China, and toward the Arctic Circle (represented at 60 degrees North with a red horozontal line). "}
-
-world <- map_data("world") 
-
-read.csv(file = "data/aei_nocrop.csv") %>% 
-ggplot() + 
-  geom_tile(aes(x=lon,y=lat,fill=six_regions)) +
-  geom_polygon(data=world,aes(x=long, y=lat, group=group), 
-               colour="black", fill="white", alpha=0) + 
-  geom_hline(yintercept = 60, color = "red") +
-  theme_minimal()+
-  theme(
-  legend.position = "none",
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    axis.title.x=element_blank(),
-        axis.text.x=element_blank(),
-        axis.ticks.x=element_blank(),
-    axis.title.y=element_blank(),
-        axis.text.y=element_blank(),
-        axis.ticks.y=element_blank()
-  )
-```
-
-## Modeling {#bayesintro}
+## Data Processing and Modeling {#data-processing-and-modeling}
 
 ### Thinning {#thin}
 
-#### Thinning for Conceptual Clarity {#nocrop}
-
-#### Thinning for Autocorrelated Structures {#autocorr}
-
 | *"The first law of geography: Everything is related to everything else, but near things are more related than distant things." - Walter Tobler [@toblerComputerMovieSimulating1970]*
 
-Bayesian inference has some unique features in comparison to other forms of statistical influence. For the context of this thesis the two main advantages or Bayesian Inference are an improved propagation of uncertainty throughout the modeling process and an ability to include prior information into models, allowing the inclusion prior knowledge [@gelmanRegressionOtherStories2020].
+#### For Spatially Autocorrelated Structures {#for-spatially-autocorrelated-structures}
 
-### Standardization
+#### For Temporally Autocorrelated Structures
 
-### Time Series Constraints
+### Standardization {#standardization}
 
-### Hierarchical Modeling
+### Time Series Considerations {#time-series-considerations}
+
+### Hierarchical Modeling {#hierarchical-modeling}
+
+Bayesian hierarchical modeling has some unique features in comparison to other forms of statistical influence. in the context of this thesis, the two main advantages or Bayesian Inference are an improved propagation of uncertainty throughout the modeling process and an ability to include prior information into models, allowing the inclusion prior knowledge [@gelmanRegressionOtherStories2020].
 
 #### DAGs
 

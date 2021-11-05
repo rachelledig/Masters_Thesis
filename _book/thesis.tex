@@ -240,9 +240,6 @@ Second paragraph of abstract starts here.
 
 The practice of irrigation, and its subsequent impacts, have far reaching effects for the global economy, food and water supply, and environment. Irrigated land accounts for 20\% of the global cultivated land area which derives 40\% of the global food supply \protect\hyperlink{ref-portmannMIRCA2000GlobalMonthly2010a}{Portmann, Siebert, \& Döll} (\protect\hyperlink{ref-portmannMIRCA2000GlobalMonthly2010a}{2010}), 70\% of water withdrawls from ground water aquifers are used for irrigation (\protect\hyperlink{ref-faoStateWorldLand2011}{FAO, 2011}), and
 
-\hypertarget{objectives}{%
-\section{Objectives}\label{objectives}}
-
 Ultimately, the agricultural system will continue to demand more water while competing with other sectors over decreasing water availability in the coming years. With this pressure, farmers will aim to be as efficient as possible by increasing their yields which, in certain areas and under certain conditions, can be done by irrigating their fields. Understanding where, when, and why farmers decide to begin irrigating is important to understand water demands now and in the future. Unfortunately, irrigation expansion is seldom studied, with few studies using statistical modeling techniques to investigate the role that biophysical, economic, and political factors play in the spread of irrigation infrastructure in the present. None do so historically. This leads to the first and overarching research question:
 
 \emph{Which factors (drivers) have influenced the expansion of irrigation in both time and space over the past 100 years?}
@@ -357,12 +354,26 @@ Ultimately, the drivers of irrigation are complex and interconnected. When quant
 \hypertarget{methods}{%
 \chapter{Methods}\label{methods}}
 
+\hypertarget{studyreg}{%
+\section{Study Region}\label{studyreg}}
+
+To be able to investigate the patterns of global historical irrigation expansion, the initial proposed study area encompassed the entirely of the globe's terrestrial land mass with recorded observations detailing every year for the 45-year study period. This constituted a data set of roughly three million observations. In an effort to decrease computation time, a logical reduction of the study area (and therefore data) was necessary.
+
+Figure \ref{fig:irrfrac-2005} illustrates the pattern of irrigation at the last time step (2005) of the study period. It is notable that irrigation does not exist at all in some places such as the higher latitudes and the Sahara. These areas also contain no cropland, no managed grasslands, and no pastureland. Upon the logic that irrigation cannot expand into areas that contain no agricultural land (whether it be cropland, grassland, or pasture land), all cells which contained no agricultural land over the the course of the study period were removed, giving rise to the study area you see in figure \ref{fig:study-region-nocrop}.
+\begin{figure}
+
+{\centering \includegraphics{thesis_files/figure-latex/study-region-nocrop-1} 
+
+}
+
+\caption[Study Area]{Final study area after the removal of cells with no agricultural land over the course of the 45 year study period. Colors represent regional groupings. Notice that excluded areas are located within the Amazon, the Sahara, Central Africa, the Middle East, Eastern China, and toward the Arctic Circle (represented at 60 degrees North with a red horozontal line). }\label{fig:study-region-nocrop}
+\end{figure}
 \hypertarget{data}{%
 \section{Data}\label{data}}
 
-To appropriately choose data that encapsulates the concepts and relationships described in Section \ref{drivers} the following datasets and variables were collected and selected. It should be noted that many of these datasets contain more than one variable that would conceptually represent the links between expanding irrigation and various drivers. The predictors presented below were selected based on various reasons including data availability (both spatially and temporally) and conceptual fidelity. For more information on all potential variables please see Appendix Section \ref{predselect}.
+To appropriately choose data that encapsulates the concepts and relationships described in Section \ref{drivers} the following datasets and variables were collected and selected. It should be noted that many of these datasets contain more than one variable that would conceptually represent the links between expanding irrigation and various drivers. The predictors presented below were selected in an iterative model building process for various reasons including data availability (both spatially and temporally), modeling constraints, and conceptual fidelity. For more information on all potential variables please see Appendix Section \ref{predselect}.
 
-Data from various sources was used in this masters thesis. The primary variable of interest, irrigation fraction, along with several other predictor variable were used as input for or were extracted from the Lund-Potsdam-Jena managed Land (LPJmL) model. Detailed descriptions of the acquisition of all data sets are in the sections to follow.
+The primary variable of interest in this masters thesis, irrigation fraction, along with several other predictor variable were used as input for or were extracted from the Lund-Potsdam-Jena managed Land (LPJmL) model. Other datasets for various predictors were gathered from datasets external to those used in LPJmL. Detailed descriptions of the acquisition of all data sets are in the sections to follow.
 
 \hypertarget{external-data}{%
 \subsection{External Data}\label{external-data}}
@@ -375,16 +386,26 @@ In order to explain the relationship between topography and irrigation expansion
 \hypertarget{TRI}{%
 \paragraph{Terrain Ruggedness Index}\label{TRI}}
 
-The Terrain Ruggedness Index (TRI) was developed by \protect\hyperlink{ref-rileyTerrainRuggednessIndex1999}{Riley, Degloria, \& Elliot} (\protect\hyperlink{ref-rileyTerrainRuggednessIndex1999}{1999}) initially to be used to analyze the effects of topography on species habitats and behaviors. The authors developed a simple method to calculate the heterogeneity of a given area using DEMs. To do so the sum change in elevation is calculated for a cell and its eight nearest neighbors. These individual cell level TRIs can then be averaged for a given region, in this thesis's case, a country (\protect\hyperlink{ref-rileyTerrainRuggednessIndex1999}{Riley, Degloria, \& Elliot, 1999} ). Adapted from \protect\hyperlink{ref-rileyTerrainRuggednessIndex1999}{Riley, Degloria, \& Elliot} (\protect\hyperlink{ref-rileyTerrainRuggednessIndex1999}{1999}), a representation of how TRI scores are calculated for differing types of terrain.
+The Terrain Ruggedness Index (TRI) was developed by \protect\hyperlink{ref-rileyTerrainRuggednessIndex1999}{Riley, Degloria, \& Elliot} (\protect\hyperlink{ref-rileyTerrainRuggednessIndex1999}{1999}) initially to be used to analyze the effects of topography on species habitats and behaviors. The authors developed a simple method to calculate the heterogeneity of a given area using DEMs. To do so, the sum change in elevation is calculated between a cell and the elevation of its eight nearest neighbors. These individual cell level TRIs can then be averaged for a given region, in this thesis's case, a country (\protect\hyperlink{ref-rileyTerrainRuggednessIndex1999}{Riley, Degloria, \& Elliot, 1999}). Adapted from \protect\hyperlink{ref-rileyTerrainRuggednessIndex1999}{Riley, Degloria, \& Elliot} (\protect\hyperlink{ref-rileyTerrainRuggednessIndex1999}{1999}), a representation of different topography types and the respective TRI scores is displayed in \ref{fig:tricalc}. The exact dataset used for country level TRI is from \protect\hyperlink{ref-nunnRuggednessBlessingBad2012}{Nunn \& Puga} (\protect\hyperlink{ref-nunnRuggednessBlessingBad2012}{2012}).
+\begin{figure}
 
+{\centering \includegraphics[width=0.75\linewidth]{figure/TRI_calc} 
+
+}
+
+\caption[Example calculations of Terrain Ruggedness Index (TRI) for differing geographies.]{TRI values a) peak geography, b) bowl geography, c) rolling hill geography. Values presented in the tables represent elevations. Notice that for both a) and b) the TRI is the same despite very different geography, but both values are much higher than c) which is a more homogenous landscape.}\label{fig:tricalc}
+\end{figure}
 \hypertarget{ruggeddesc}{%
 \paragraph{Description}\label{ruggeddesc}}
 
-In Figure \ref{fig:TRI} the Terrain Ruggedness Index for the study region can be see. Higher values indicate countries with more topographical heterogeneity, and lower values represent less. As you can see
+In Figure \ref{fig:TRI} the Terrain Ruggedness Index for the study region can be see. Higher values indicate countries with more topographical heterogeneity, and lower values represent less.
 \begin{figure}
-\centering
-\includegraphics{thesis_files/figure-latex/TRI-1.pdf}
-\caption{\label{fig:TRI}Terrain Ruggedness Index for the study area. TRI values}
+
+{\centering \includegraphics{thesis_files/figure-latex/TRI-1} 
+
+}
+
+\caption[Terrain Ruggedness Index values for the study area.]{TRI values on a country level basis. }\label{fig:TRI}
 \end{figure}
 \hypertarget{gdppc}{%
 \subsubsection{Economics: Income}\label{gdppc}}
@@ -403,13 +424,37 @@ The Maddison Project Database was developed by University of Groningen to docume
 \hypertarget{BRdemo}{%
 \paragraph{Bjørnskov-Rode Regime Data}\label{BRdemo}}
 
-The Bjørnskov-Rode Regime Data developed by \protect\hyperlink{ref-bjornskovRegimeTypesRegime2018}{Bjørnskov \& Rode} (\protect\hyperlink{ref-bjornskovRegimeTypesRegime2018}{2018}) presents a data set of political governance regimes and regime changes for 192 countries and 16 self governing territories between 1950 and 2016, including data regarding periods of colonial control, which other datasets such as \protect\hyperlink{ref-centerforsystemicpeacePolityProjectPolity2020}{Center for Systemic Peace} (\protect\hyperlink{ref-centerforsystemicpeacePolityProjectPolity2020}{2020}) do not include. The Bjørnskov-Rode Regime Dataset classifies governmental regimes t
+The Bjørnskov-Rode Regime Data developed by \protect\hyperlink{ref-bjornskovRegimeTypesRegime2018}{Bjørnskov \& Rode} (\protect\hyperlink{ref-bjornskovRegimeTypesRegime2018}{2018}) presents a data set of political governance regimes and regime changes for 192 countries and 16 self governing territories between 1950 and 2016, including data regarding periods of colonial control, which other well known datasets such as \protect\hyperlink{ref-centerforsystemicpeacePolityProjectPolity2020}{Center for Systemic Peace} (\protect\hyperlink{ref-centerforsystemicpeacePolityProjectPolity2020}{2020}) used in \protect\hyperlink{ref-neumannExploringGlobalIrrigation2011}{Neumann et al.} (\protect\hyperlink{ref-neumannExploringGlobalIrrigation2011}{2011}) do not include. The Bjørnskov-Rode Regime Dataset classifies governmental regimes into democratic and non democratic categories, each with three classifications, giving rise to six different political regimes.
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.44}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.56}}@{}}
+\toprule
+Democracies & Non-Democracies \\
+\midrule
+\endhead
+Parliamentary Democracies & Civilian Autocracies (Leader w/o military rank) \\
+Mixed Democracies (w/weak president) & Military Dictatorships (Leader w/military rank) \\
+Presidential Democracies & Royal Dictatorships \\
+\bottomrule
+\end{longtable}
+In addition, a classification for ``Colony'' (i.e.~most often ``Former Colony'') was created to better understand understand the relationship between external governance and irrigation fraction.
 
 \hypertarget{description-1}{%
 \paragraph{Description}\label{description-1}}
 
+A representation of governance regimes for the study area in the last period of the study period can be seen in Figure \ref{fig:demo2005} below.
+\begin{figure}
+
+{\centering \includegraphics{thesis_files/figure-latex/demo2005-1} 
+
+}
+
+\caption[Governance regimes of the study area in 2005.]{The political systems of the study area in the last year of the study period (2005). }\label{fig:demo2005}
+\end{figure}
 \hypertarget{lpjml-data}{%
 \subsection{LPJmL Data}\label{lpjml-data}}
+
+The Lund-Potsdam-Jena managed Land (LPJmL) is a Dynamic Global Vegetation Model which simulates the global terrestrial carbon cycle and the corresponding response of vegetation patterns, both natural and managed, under a given set of climactic conditions (\protect\hyperlink{ref-schaphoffLPJmL4DynamicGlobal2018}{Schaphoff et al., 2018}). Spatially and temporally explicit data regarding climate, landuse patterns, and anthropogenic activities among others is fed into the model and used to simulate, via the LPJmL's established biophysiological interconnections, a multitude of processes and outcomes that relate to global vegetation patterns and carbon cycles(\protect\hyperlink{ref-pikLPJmLLundPotsdamJenaManaged}{PIK, n.d.}). Four predictor variables were used as input for or were extracted from the LPJmL model. They are detailed in the section below.
 
 \hypertarget{dist}{%
 \subsubsection{Compatibility: Distance to the Next Irrigated Cell}\label{dist}}
@@ -435,8 +480,15 @@ The HYDE population density estimates were then used as an input to LPJmL
 \hypertarget{popdensdesc}{%
 \paragraph{Description}\label{popdensdesc}}
 
-A description of population density estimates from
+A description of population density estimates from the year 2005 are represented in Figure \ref{fig:popdens2005}.
+\begin{figure}
 
+{\centering \includegraphics{thesis_files/figure-latex/popdens2005-1} 
+
+}
+
+\caption{Population density }\label{fig:popdens2005}
+\end{figure}
 \hypertarget{precip}{%
 \subsubsection{Water: Precipitation}\label{precip}}
 
@@ -462,19 +514,31 @@ Data for global historical irrigation patterns was collected from the Global His
 
 To amass this data \protect\hyperlink{ref-siebertGlobalDataSet2015}{Stefan Siebert et al.} (\protect\hyperlink{ref-siebertGlobalDataSet2015}{2015}) used a variety of sources to collect national and subnational statistics including FAOSTAT (\protect\hyperlink{ref-faoFAOSTAT2021}{FAO, 2021b}), EuroStat (\protect\hyperlink{ref-europeancomissionEurostatDatabase2021}{Comission, 2021}), and Aquastat (\protect\hyperlink{ref-faoAQUASTAT2021}{FAO, 2021a}) along with other less collected sources like census data and statistical yearbooks. Data was recorded for 10 year timesteps until 1980 and five year timesteps until the termination of the study period in 2005. Data for the period prior to 1950 and for the year 2005 has higher levels of uncertainty in the measurements when compared to the data between 1950 and 2005, as irrigation data from international organizations (e.g.~FAO) were unavailable prior and post. After collection the data was harmonized and downscaled to a 5 arcmin resolution. Special care was taken to ensure that high resolution data (at a 5 arcmin resolution) could be accurately summed to the subnational level, ensuring accuracy at different resolutions. In addition, the authors note that validation of this dataset was not possible due to the fact that all available data was used as input to create the HID (\protect\hyperlink{ref-siebertGlobalDataSet2015}{Stefan Siebert et al., 2015}).
 
-The HID, in combination with other datasets such the History Database of the Global Environment ( \protect\hyperlink{ref-kleingoldewijkHundredYear18901997}{C. Klein Goldewijk \& Battjes} (\protect\hyperlink{ref-kleingoldewijkHundredYear18901997}{1997}), see Section \ref{HYDE}) and Climate Research Unit Time Series Data ( \protect\hyperlink{ref-universityofeastangliaclimaticresearchunitVersionCRUTS2021}{University of East Anglia Climatic Research Unit, Harris, Osborn, \& Jones} (\protect\hyperlink{ref-universityofeastangliaclimaticresearchunitVersionCRUTS2021}{2021}), see Section (\protect\hyperlink{ref-ref}{\textbf{ref?}})(CRU)) were used was then fed into the LPJmL model. The Lund-Potsdam-Jena managed Land (LPJmL) is a Dynamic Global Vegetation Model which simulates the global terrestrial carbon cycle and the corresponding response of vegetation patterns, both natural and managed, under a given set of climactic conditions (\protect\hyperlink{ref-schaphoffLPJmL4DynamicGlobal2018}{Schaphoff et al., 2018}). Spatially and temporally explicit data regarding climate, landuse patterns, and anthropogenic activities among others is fed into the model and used to simulate, via the LPJmL's established biophysiological interconnections, a multitude of processes and outcome that relate to global vegetation patterns and carbon cycles(\protect\hyperlink{ref-pikLPJmLLundPotsdamJenaManaged}{PIK, n.d.}). For the purposes of this masters thesis, a global irrigation pattern represented by percentage of irrigated area per cell at a 0.5° x 0.5° latitude longitude global grid cell resolution with yearly observations for a period of 1960 to 2005 was extracted from the LPJmL model .
+The HID, in combination with other datasets such the History Database of the Global Environment ( \protect\hyperlink{ref-kleingoldewijkHundredYear18901997}{C. Klein Goldewijk \& Battjes} (\protect\hyperlink{ref-kleingoldewijkHundredYear18901997}{1997}), see Section \ref{HYDE}) and Climate Research Unit Time Series Data ( \protect\hyperlink{ref-universityofeastangliaclimaticresearchunitVersionCRUTS2021}{University of East Anglia Climatic Research Unit, Harris, Osborn, \& Jones} (\protect\hyperlink{ref-universityofeastangliaclimaticresearchunitVersionCRUTS2021}{2021}), see Section (\protect\hyperlink{ref-ref}{\textbf{ref?}})(CRU)) were used was then fed into the LPJmL model. For the purposes of this masters thesis, a global irrigation pattern represented by percentage of irrigated area per cell at a 0.5° x 0.5° latitude longitude global grid cell resolution with yearly observations for a period of 1960 to 2005 was extracted from the LPJmL model .
 
 \hypertarget{irrfracdesc}{%
 \paragraph{Description}\label{irrfracdesc}}
 
 Levels of irrigation vary widely both geographically and temporally. In Figure \ref{fig:irrfrac2005} the global irrigation pattern for the last year of they study period (2005) is depicted.
 \begin{figure}
-\includegraphics[width=1000px]{figure/irrfrac2005} \caption{Percentage of a cell's area covered by land equipped for irrigation. Represents the global irrigation pattern at a 0.5° x 0.5° latitude longitude grid cell resolution for the last year of the study period (2005).}\label{fig:irrfrac2005}
+
+{\centering \includegraphics[width=1\linewidth]{thesis_files/figure-latex/irrfrac2005-1} 
+
+}
+
+\caption[Irrigation fraction per grid cell of the study area in 2005.]{Percentage of a cell's area covered by land equipped for irrigation. Represents the global irrigation pattern at a 0.5° x 0.5° latitude longitude grid cell resolution for the last year of the study period (2005).}\label{fig:irrfrac2005}
 \end{figure}
 There are several ``hotspots'' of irrigation that occur, predominantly in the interior of the United States, north of India, Bangladesh, and Eastern China in which more than 30\% of a cell is irrigated area. Otherwise, generally irrigation, where it exists, a small minority of cell area. No irrigation occurs in some places including towards arctic circle and in the Sahara, among other places.
 
 When looking at the histogram of the data distribution of the target variable, irrigation fraction, it is clear to see that the data includes many zeros.
+\begin{figure}
 
+{\centering \includegraphics{thesis_files/figure-latex/irrfrachist-1} 
+
+}
+
+\caption[Histogram of the outcome variable, Irrigation Fraction (IF) for the entirety of the study region and period (1960 to 2005).]{Histogram of the outcome variable, Irrigation Fraction (IF).}\label{fig:irrfrachist}
+\end{figure}
 \hypertarget{hypothesis}{%
 \section{Hypothesis}\label{hypothesis}}
 
@@ -508,55 +572,50 @@ For the presence or absence of irrigation, the following hypothesis are proposed
 \item
   An \textbf{increase in income (GDP per capita)} will result in an \textbf{increase of irrigated cells.}
 \end{enumerate}
-\hypertarget{studyreg}{%
-\section{Study Region}\label{studyreg}}
-
-To be able to investigate the patterns of global historical irrigation expansion, the initial proposed study area encompassed the entirely of the globe's terrestrial land mass with recorded observations detailing every year for the 45-year study period. This constituted a data set of roughly three million observations. In an effort to decrease computation time, a logical reduction of the study area (and therefore data) was necessary.
-
-Figure \ref{fig:irrfrac-2005} illustrates the pattern of irrigation at the last time step (2005) of the study period. It is notable that irrigation does not exist at all in some places such as the higher latitudes and the Sahara. These areas also contain no cropland, no managed grasslands, and no pastureland. Upon the logic that irrigation cannot expand into areas that contain no agricultural land (whether it be cropland, grassland, or pasture land), all cells which contained no agricultural land over the the course of the study period were removed, giving rise to the study area you see in figure \ref{fig:study-region-nocrop}.
-\begin{figure}
-\centering
-\includegraphics{thesis_files/figure-latex/study-region-nocrop-1.pdf}
-\caption{\label{fig:study-region-nocrop}Final study area after the removal of cells with no agricultural land over the course of the 45 year study period. Colors represent regional groupings. Notice that excluded areas are located within the Amazon, the Sahara, Central Africa, the Middle East, Eastern China, and toward the Arctic Circle (represented at 60 degrees North with a red horozontal line).}
-\end{figure}
-\hypertarget{bayesintro}{%
-\section{Modeling}\label{bayesintro}}
+\hypertarget{data-processing-and-modeling}{%
+\section{Data Processing and Modeling}\label{data-processing-and-modeling}}
 
 \hypertarget{thin}{%
 \subsection{Thinning}\label{thin}}
 
-\hypertarget{nocrop}{%
-\subsubsection{Thinning for Conceptual Clarity}\label{nocrop}}
-
-\hypertarget{autocorr}{%
-\subsubsection{Thinning for Autocorrelated Structures}\label{autocorr}}
-
 \emph{``The first law of geography: Everything is related to everything else, but near things are more related than distant things.'' - Walter Tobler (\protect\hyperlink{ref-toblerComputerMovieSimulating1970}{Tobler, 1970})}
 
-Bayesian inference has some unique features in comparison to other forms of statistical influence. For the context of this thesis the two main advantages or Bayesian Inference are an improved propagation of uncertainty throughout the modeling process and an ability to include prior information into models, allowing the inclusion prior knowledge (\protect\hyperlink{ref-gelmanRegressionOtherStories2020}{Gelman, Hill, \& Vehtari, 2020}).
+\hypertarget{for-spatially-autocorrelated-structures}{%
+\subsubsection{For Spatially Autocorrelated Structures}\label{for-spatially-autocorrelated-structures}}
+
+\hypertarget{for-temporally-autocorrelated-structures}{%
+\subsubsection{For Temporally Autocorrelated Structures}\label{for-temporally-autocorrelated-structures}}
 
 \hypertarget{standardization}{%
 \subsection{Standardization}\label{standardization}}
 
-\hypertarget{time-series-constraints}{%
-\subsection{Time Series Constraints}\label{time-series-constraints}}
+\hypertarget{time-series-considerations}{%
+\subsection{Time Series Considerations}\label{time-series-considerations}}
 
 \hypertarget{hierarchical-modeling}{%
 \subsection{Hierarchical Modeling}\label{hierarchical-modeling}}
+
+Bayesian hierarchical modeling has some unique features in comparison to other forms of statistical influence. in the context of this thesis, the two main advantages or Bayesian Inference are an improved propagation of uncertainty throughout the modeling process and an ability to include prior information into models, allowing the inclusion prior knowledge (\protect\hyperlink{ref-gelmanRegressionOtherStories2020}{Gelman, Hill, \& Vehtari, 2020}).
 
 \hypertarget{dags}{%
 \subsubsection{DAGs}\label{dags}}
 
 A Directed Acyclic Graph (DAG)
 \begin{figure}
-\centering
-\includegraphics{thesis_files/figure-latex/mudag-1.pdf}
-\caption{\label{fig:mudag}Directed Acyclic Graph for Beta}
+
+{\centering \includegraphics{thesis_files/figure-latex/mudag-1} 
+
+}
+
+\caption{Directed Acyclic Graph for Beta}\label{fig:mudag}
 \end{figure}
 \begin{figure}
-\centering
-\includegraphics{thesis_files/figure-latex/zidag-1.pdf}
-\caption{\label{fig:zidag}Directed Acyclic Graph for zero inflated paramater zi}
+
+{\centering \includegraphics{thesis_files/figure-latex/zidag-1} 
+
+}
+
+\caption{Directed Acyclic Graph for zero inflated paramater zi}\label{fig:zidag}
 \end{figure}
 To test these hypothesis, a quick view of correlations was carried out.
 
@@ -643,9 +702,12 @@ Effectively, Equation \eqref{eq:proppost} means that the posterior is proportion
 
 Specification of the prior distribution is not a trivial task, as the prior attempts to encapsulate the previous knowledge of a specific parameter and has impacts on the posterior distribution. The determination of the prior should be done before seeing the data and serves two main functions, communicating previous scientific or common knowledge about a parameters distribution and/or helping the the model learn more efficiently (\protect\hyperlink{ref-mcelreathStatisticalRethinkingBayesian2020}{McElreath, 2020}). Often times flat priors are used initially and improved upon iteratively. Effects of the prior on the posterior can be seen in Figure \ref{fig:prioreffects} which is adapted from \protect\hyperlink{ref-mcelreathStatisticalRethinkingBayesian2020}{McElreath} (\protect\hyperlink{ref-mcelreathStatisticalRethinkingBayesian2020}{2020, p. 38}) and \protect\hyperlink{ref-kurzStatisticalRethinkingBrms2019}{Kurz} (\protect\hyperlink{ref-kurzStatisticalRethinkingBrms2019}{2019, sec. 2.4}).
 \begin{figure}
-\centering
-\includegraphics{thesis_files/figure-latex/prioreffects-1.pdf}
-\caption{\label{fig:prioreffects}Effects of the prior distrubution on the unnormalized posterior with a Normal(0.5, 0.25) likelihood. First row: Uniform prior, Second row: Beta(a = 0.75, b = 0.75) prior, Third Row: Exponential prior. Prior and likelihood are multiplied together to create the unnormalized posterior seen in the third column.}
+
+{\centering \includegraphics{thesis_files/figure-latex/prioreffects-1} 
+
+}
+
+\caption{Effects of the prior distrubution on the unnormalized posterior with a Normal(0.5, 0.25) likelihood. First row: Uniform prior, Second row: Beta(a = 0.75, b = 0.75) prior, Third Row: Exponential prior. Prior and likelihood are multiplied together to create the unnormalized posterior seen in the third column.}\label{fig:prioreffects}
 \end{figure}
 There are several different types of priors used when discussing Bayesian inference. Some of the most common types of priors discussed are (\protect\hyperlink{ref-gelmanBayesianDataAnalysis2013}{Gelman et al., 2013}):
 \begin{itemize}
@@ -829,6 +891,9 @@ McElreath, R. (2020). \emph{Statistical {Rethinking}: A {Bayesian Course} with {
 
 \leavevmode\hypertarget{ref-neumannExploringGlobalIrrigation2011}{}%
 Neumann, K., Stehfest, E., Verburg, P. H., Siebert, S., Müller, C., \& Veldkamp, T. (2011). Exploring global irrigation patterns: A multilevel modelling approach. \emph{Agricultural Systems}, \emph{104}(9), 703--713.
+
+\leavevmode\hypertarget{ref-nunnRuggednessBlessingBad2012}{}%
+Nunn, N., \& Puga, D. (2012). Ruggedness: The {Blessing} of {Bad Geography} in {Africa}. \emph{Review of Economics and Statistics}, 17.
 
 \leavevmode\hypertarget{ref-pikLPJmLLundPotsdamJenaManaged}{}%
 PIK. (n.d.). {LPJmL} - {Lund}-{Potsdam}-{Jena} managed {Land} {} {Potsdam Institute} for {Climate Impact Research}. https://www.pik-potsdam.de/en/institute/departments/activities/biosphere-water-modelling/lpjml.
