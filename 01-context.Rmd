@@ -19,11 +19,12 @@ library(tidyr)
 library(tidyverse)
 library(ggplot2)
 
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, fig.align = "center")
 ```
 
 # Context {#Theory}
 
-This chapter details the theoretical basis for this thesis. Initially, literature will be reviewed beginning with irrigation expansion drivers in Section \@ref(drivers) and followed by a detailed account of prior irrigation modeling studies in Section \@ref(irrmodslit). Finally, an account of the basics of Bayesian inference will be described in Section \@ref(bayesintro).
+This chapter details the theoretical basis for this thesis. Initially, literature will be reviewed beginning with irrigation expansion drivers in Section \@ref(drivers) and followed by a detailed account of prior irrigation modeling studies in Section \@ref(irrmodslit).
 
 ## Modeling Studies of Irrigation Expansion {#irrmodslit}
 
@@ -45,7 +46,7 @@ To begin, it is important to know a little bit about irrigation systems. Irrigat
 
 <!--# Fix citation for these images -->
 
-```{r irrigationtypes, echo=FALSE,out.width="30%", out.height="20%",fig.cap="Different types of irrigation technologies (Source: Google Images, 2021)", fig.subcap = c("a) Furrow irrigaion", "b) Sprinkler irrigation", "c) Drip irrigation"), fig.show='hold',fig.align='center', fig.scap= "Different types of irrigation technologies."}
+```{r irrigationtypes, fig.scap= "Examples of different types of irrigation technologies.",out.width="30%", out.height="20%",fig.cap="Different types of irrigation technologies (Source: Google Images, 2021)", fig.subcap = c("Furrow irrigaion", "Sprinkler irrigation", "Drip irrigation"), fig.show='hold',fig.nrow = 1}
 knitr::include_graphics(c("figure/FurrowPic.jpeg","figure/Irrigation-sprinklers.jpeg", "figure/DripIrrigation.jpeg"))
 ```
 

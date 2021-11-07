@@ -16,24 +16,58 @@ library(raster)
 library(ggplot2)
 library(rnaturalearth)
 library(tidyr)
+library(sp)
+library(spdep)
+library(moranfast)
+library(gridExtra)
+library(cowplot)
+library(ncf)
 
 #change this if need be
 setwd("/Volumes/RachelExternal2/Thesis/Master_Thesis")
+
+#load data for this section
+aei_2005 <- read.csv(file = "data/aei_2005.csv")
+
 ```
 
 # Methods {#methods}
 
 ## Study Region {#studyreg}
 
-To be able to investigate the patterns of global historical irrigation expansion, the initial proposed study area encompassed the entirely of the globe's terrestrial land mass with recorded observations detailing every year for the 45-year study period. This constituted a data set of roughly three million observations. In an effort to decrease computation time, a logical reduction of the study area (and therefore data) was necessary.
+```{r}
+irrcolsums <-
+  read.csv("data/irrcolsums.csv") %>% 
+  ggplot() + 
+  geom_line(aes(y =Irrigation.Fraction/1000, x = Year), color = "dark green", size = 2) +
+  ylab(expression("Irrigated Area in 1000s of"~km^2)) + 
+  theme_minimal() +
+  theme(text=element_text(size=10))
 
-Figure \@ref(fig:irrfrac-2005) illustrates the pattern of irrigation at the last time step (2005) of the study period. It is notable that irrigation does not exist at all in some places such as the higher latitudes and the Sahara. These areas also contain no cropland, no managed grasslands, and no pastureland. Upon the logic that irrigation cannot expand into areas that contain no agricultural land (whether it be cropland, grassland, or pasture land), all cells which contained no agricultural land over the the course of the study period were removed, giving rise to the study area you see in figure \@ref(fig:study-region-nocrop).
+ggsave(irrcolsums, file = "figure/irrcolsums.png", height = 3, width = 2.5)
 
-```{r study-region-nocrop, fig.cap="Final study area after the removal of cells with no agricultural land over the course of the 45 year study period. Colors represent regional groupings. Notice that excluded areas are located within the Amazon, the Sahara, Central Africa, the Middle East, Eastern China, and toward the Arctic Circle (represented at 60 degrees North with a red horozontal line). ", fig.scap="Study Area"}
+```
+
+```{=tex}
+\begin{wrapfigure}{R}{.4\textwidth}  
+ \begin{center}
+    \includegraphics[width=.33\textwidth]{"figure/irrcolsums.png"}  
+  \caption{Global irrigated area over the entirety (1900-2005) of the inital study period.} 
+  \label{fig:irrexprate}
+\end{center}
+\end{wrapfigure}
+```
+The initial dataset, graciously provided by Potsdam Institute for Climate Impact Research (PIK) from the Lund-Potsdam-Jena managed Land (LPJmL) model, included information about a variety of biophysical predictors on a 0.5° x 0.5° latitude longitude global grid cell resolution with yearly observations from a period of 1900 to 2005. In total, this constituted a data set of roughly seven million observations. Inital trials were conducted to work with the entirety of the data provided, however it soon became apparent that seven million observations was too difficult to work from a modeling perspective. In an effort to decrease computation time and effort, a logical reduction of the study area (and therefore data) was necessary.
+
+Upon initial investigations it was revealed that the rate of irrigation expansion from 1900 to 1960 was not the same as the rate post 1960 (see Figure \@ref(fig:irrexprate)). In addition, global socioeconomic data was scarce for periods prior to 1960 [@worldbankGDPCapitaCurrent2021]. Therefore, the decision was made to only focus analyzing global irrigation patterns from 1960 onward. This resulted in a reduction of data from seven million observations to roughly three million. Further reduction was still needed.
+
+Figure \@ref(fig:irrfrac2005), pictured later in Section \@ref(irrfrac), illustrates the pattern of irrigation at the last time step (2005) of the study period. It is notable that irrigation does not exist at all in some places such as the higher latitudes and the Sahara, a pattern that was confirmed in earlier years as well. These areas also contain no cropland, no managed grasslands, and no pastureland. Upon the logic that irrigation cannot expand into areas that contain no agricultural land (whether it be cropland, grassland, or pasture land), all cells which contained no agricultural land over the the course of the study period were removed. Ultimately, irrigation expansion patterns from 1960 to 2005 within the study area you see in Figure \@ref(fig:study-region-nocrop) were analyzed.
+
+```{r study-region-nocrop, fig.scap="Study Area", fig.cap="Final study area after the removal of cells with no agricultural land over the course of the 45 year study period. Colors represent regional groupings. Notice that excluded areas are located within the Amazon, the Sahara, Central Africa, the Middle East, Eastern China, and toward the Arctic Circle (represented at 60°N by the red horozontal line). " }
 
 world <- map_data("world") 
 
-read.csv(file = "data/aei_2005.csv") %>% 
+aei_2005 %>% 
 ggplot() + 
   geom_tile(aes(x=lon,y=lat,fill=eight_regions)) +
   scale_fill_viridis_d(labels = c("North Africa", 
@@ -90,11 +124,11 @@ knitr::include_graphics("figure/TRI_calc.png")
 
 In Figure \@ref(fig:TRI) the Terrain Ruggedness Index for the study region can be see. Higher values indicate countries with more topographical heterogeneity, and lower values represent less.
 
-```{r TRI, fig.scap="Terrain Ruggedness Index values for the study area.", fig.cap= "TRI values on a country level basis. "}
+```{r TRI, fig.scap="Terrain Ruggedness Index values for the study area.", fig.cap= "Terrain Ruggedness Index (TRI) values on a country level basis. "}
 
 world <- map_data("world") 
 
-read.csv(file = "data/aei_2005.csv") %>% 
+aei_2005 %>% 
   ggplot() + 
   geom_tile(aes(x=lon,y=lat,fill=rugged)) +
   scale_fill_viridis_c(name = "Terrain \nRuggedness \nIndex", 
@@ -103,7 +137,7 @@ read.csv(file = "data/aei_2005.csv") %>%
                colour="black", fill="white", alpha=0)+
   theme_minimal()+
   theme(legend.position = "bottom",
-        legend.key.width=unit(2,"cm"),
+        legend.key.width=unit(1.5,"cm"),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
     axis.title.x=element_blank(),
@@ -123,23 +157,49 @@ The Maddison Project Database was developed by University of Groningen to docume
 
 ##### Description
 
+Income (GDP per capita) varies widely across the study area, as can be seen in Figure \@ref(fig:income2005)
+
+```{r income2005, fig.scap= "Country level income (GDP per capita) of the study region in 2005.", fig.cap="Country level income (GDP per capita) of the study region in 2005 in 2011 USD. Note that the scale is represented logarithmacally. Data collected from the Maddison Project Database."}
+
+world <- map_data("world") 
+
+aei_2005 %>% 
+  ggplot() + 
+  geom_tile(aes(x=lon,y=lat,fill= gdppc)) +
+  scale_fill_viridis_c(direction = -1, 
+                       trans = "log",
+                       breaks = c(0, 2650, 8000, 24400),
+                       name="GDP per capita (2011 USD)") +
+  geom_polygon(data=world,aes(x=long, y=lat, group=group), 
+               colour="black", fill="white", alpha=0)+
+  theme_minimal()+
+  theme(legend.position = "bottom",
+        legend.key.width=unit(1.5,"cm"),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+    axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank()
+  )
+
+```
+
 #### External Influences: Democracy {#democracy}
 
 ##### Bjørnskov-Rode Regime Data {#BRdemo}
 
 The Bjørnskov-Rode Regime Data developed by @bjornskovRegimeTypesRegime2018 presents a data set of political governance regimes and regime changes for 192 countries and 16 self governing territories between 1950 and 2016, including data regarding periods of colonial control, which other well known datasets such as @centerforsystemicpeacePolityProjectPolity2020 used in @neumannExploringGlobalIrrigation2011 do not include. The Bjørnskov-Rode Regime Dataset classifies governmental regimes into democratic and non democratic categories, each with three classifications, giving rise to six different political regimes.
 
-+--------------------------------------+-------------------------------------------------+
 | Democracies                          | Non-Democracies                                 |
-+======================================+=================================================+
+|--------------------------------------|-------------------------------------------------|
 | Parliamentary Democracies            | Civilian Autocracies (Leader w/o military rank) |
-+--------------------------------------+-------------------------------------------------+
 | Mixed Democracies (w/weak president) | Military Dictatorships (Leader w/military rank) |
-+--------------------------------------+-------------------------------------------------+
 | Presidential Democracies             | Royal Dictatorships                             |
-+--------------------------------------+-------------------------------------------------+
 
-In addition, a classification for "Colony" (i.e. most often "Former Colony") was created to better understand understand the relationship between external governance and irrigation fraction.
+In addition, a classification for "Colony" (i.e. most often "Former Colony") was created by the author of this master thesis to better understand understand the relationship between external governance regimes and irrigation fraction.
 
 ##### Description
 
@@ -149,7 +209,7 @@ A representation of governance regimes for the study area in the last period of 
 
 world <- map_data("world") 
 
-read.csv(file = "data/aei_2005.csv") %>% 
+aei_2005 %>% 
   mutate(DD.regime = as.factor(DD.regime)) %>% 
   drop_na(DD.regime) %>% 
   ggplot() + 
@@ -189,7 +249,35 @@ The Lund-Potsdam-Jena managed Land (LPJmL) is a Dynamic Global Vegetation Model 
 
 ##### Description
 
-#### Social Influences: Population Density
+```{r dist2005, fig.scap= "Distance to the next irrigated cell of the study area in 2005.", fig.cap= "Distance to the next irrigated cell in km for the year 2005 for cells that contain no irrigation. Note that a) the scale is represented logarithmically and b) cells that contain irrigation have a distance to the next irrigated cell of 0 and are represented in yellow/grey."}
+world <- map_data("world") 
+
+aei_2005 %>% 
+  ggplot() + 
+  geom_tile(aes(x=lon,y=lat,fill= dist)) +
+  scale_fill_viridis_c(direction = -1, 
+                       trans = "log",
+                       na.value = "cornsilk2",
+                       breaks = c(55, 165,440 ,1100),
+                       name= "Distance to the \nnext irrigated cell (km)") +
+  geom_polygon(data=world,aes(x=long, y=lat, group=group), 
+               colour="black", fill="white", alpha=0)+
+  theme_minimal()+
+  theme(legend.position = "bottom",
+        legend.key.width=unit(1.5,"cm"),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+    axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank()
+  )
+
+```
+
+#### Social Influences: Population Density {#popdens}
 
 ##### The History Database of the Global Environment (HYDE)
 
@@ -203,10 +291,10 @@ The HYDE population density estimates were then used as an input to LPJmL
 
 A description of population density estimates from the year 2005 are represented in Figure \@ref(fig:popdens2005).
 
-```{r popdens2005, fig.cap="Population density in the year 2005 represented as people per square kilometer. Note that the scale is logarithmic and areas where population density equals 0, i.e. there are no inhabitants, is represented with in grey/yellow.", fig.scap= "Population density pattern in 2005."}
+```{r popdens2005, fig.scap= "Population density pattern of the study area in 2005.", fig.cap="Population density in the year 2005 represented as people per square kilometer. Note that the scale is logarithmic and areas where population density equals 0, i.e. there are no inhabitants, is represented with in grey/yellow." }
 world <- map_data("world") 
 
-read.csv(file = "data/aei_2005.csv") %>% 
+aei_2005 %>% 
   ggplot() + 
   geom_tile(aes(x=lon,y=lat,fill= popdens)) +
   scale_fill_viridis_c(direction = -1, 
@@ -218,7 +306,7 @@ read.csv(file = "data/aei_2005.csv") %>%
                colour="black", fill="white", alpha=0)+
   theme_minimal()+
   theme(legend.position = "bottom",
-        legend.key.width=unit(2,"cm"),
+        legend.key.width=unit(1.5,"cm"),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
     axis.title.x=element_blank(),
@@ -243,19 +331,19 @@ Data for precipitation was collected from the Climate Research Unit of the Unive
 
 ##### Description {#precipdesc}
 
-```{r precip2005, fig.cap="Precipitation pattern in 2005. Precipitation was summed from monthly values "}
+```{r precip2005, fig.scap= "Precipitation pattern of the study area in 2005.", fig.cap="Precipitation pattern in 2005. Precipitation was summed from monthly observations to compute yearly observation."}
 world <- map_data("world") 
 
-read.csv(file = "data/aei_2005.csv") %>% 
+aei_2005 %>% 
   ggplot() + 
   geom_tile(aes(x=lon,y=lat,fill=precip)) +
-  scale_fill_viridis_c(name = "Precipitation (mm/year)", 
+  scale_fill_viridis_c(name = "Precipitation \n(mm/year)", 
                        direction = -1) +
   geom_polygon(data=world,aes(x=long, y=lat, group=group), 
                colour="black", fill="white", alpha=0)+
   theme_minimal()+
   theme(legend.position = "bottom",
-        legend.key.width=unit(2,"cm"),
+        legend.key.width=unit(1.5,"cm"),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
     axis.title.x=element_blank(),
@@ -281,7 +369,7 @@ Data for global historical irrigation patterns was collected from the Global His
 
 To amass this data @siebertGlobalDataSet2015 used a variety of sources to collect national and subnational statistics including FAOSTAT [@faoFAOSTAT2021], EuroStat [@europeancomissionEurostatDatabase2021], and Aquastat [@faoAQUASTAT2021] along with other less collected sources like census data and statistical yearbooks. Data was recorded for 10 year timesteps until 1980 and five year timesteps until the termination of the study period in 2005. Data for the period prior to 1950 and for the year 2005 has higher levels of uncertainty in the measurements when compared to the data between 1950 and 2005, as irrigation data from international organizations (e.g. FAO) were unavailable prior and post. After collection the data was harmonized and downscaled to a 5 arcmin resolution. Special care was taken to ensure that high resolution data (at a 5 arcmin resolution) could be accurately summed to the subnational level, ensuring accuracy at different resolutions. In addition, the authors note that validation of this dataset was not possible due to the fact that all available data was used as input to create the HID [@siebertGlobalDataSet2015].
 
-The HID, in combination with other datasets such the History Database of the Global Environment ( @kleingoldewijkHundredYear18901997, see Section \@ref(HYDE)) and Climate Research Unit Time Series Data ( @universityofeastangliaclimaticresearchunitVersionCRUTS2021, see Section @ref(CRU)) were used was then fed into the LPJmL model. For the purposes of this masters thesis, a global irrigation pattern represented by percentage of irrigated area per cell at a 0.5° x 0.5° latitude longitude global grid cell resolution with yearly observations for a period of 1960 to 2005 was extracted from the LPJmL model .
+The HID, in combination with other datasets such the History Database of the Global Environment ( @kleingoldewijkHundredYear18901997, see Section \@ref(popdens)) and Climate Research Unit Time Series Data ( @universityofeastangliaclimaticresearchunitVersionCRUTS2021, see Section @ref(precip) were used was then fed into the LPJmL model. For the purposes of this masters thesis, a global irrigation pattern represented by percentage of irrigated area per cell at a 0.5° x 0.5° latitude longitude global grid cell resolution with yearly observations for a period of 1960 to 2005 was extracted from the LPJmL model .
 
 ##### Description {#irrfracdesc}
 
@@ -299,17 +387,17 @@ world <- map_data("world")
 breaks <- c(0, 0.1, 1, 5, 10, 20, 35, 50, 75, 100)
 cols <- c("#FFFFFF","#FDE725FF","#B4DE2CFF","#6DCD59FF","#35B779FF", "#1F9E89FF", "#26828EFF","#31688EFF","#3E4A89FF", "#482878FF","#440154FF") #brute force viridis
 
-read.csv(file = "data/aei_2005.csv") %>% 
+aei_2005 %>% 
   ggplot() + 
   geom_tile(aes(x=lon,y=lat,fill= irrfrac*100)) +
   scale_fill_stepsn(colours = cols,
                     breaks = breaks,
-                    name = "Percentage of irrigated area \nper grid cell") +
+                    name = "Percentage of \nirrigated area \nper grid cell") +
   geom_polygon(data=world,aes(x=long, y=lat, group=group), 
                colour="black", fill="white", alpha=0) +
   theme_minimal()+
   theme(legend.position = "bottom",
-        legend.key.width=unit(2,"cm"),
+        legend.key.width=unit(1.5,"cm"),
     panel.grid.major = element_blank(),
     panel.grid.minor = element_blank(),
     axis.title.x=element_blank(),
@@ -326,7 +414,7 @@ There are several "hotspots" of irrigation that occur, predominantly in the inte
 When looking at the histogram of the data distribution of the target variable, irrigation fraction, it is clear to see that the data includes many zeros.
 
 ```{r irrfrachist, fig.cap="Histogram of the outcome variable, Irrigation Fraction (IF).", fig.scap="Histogram of the outcome variable, Irrigation Fraction (IF) for the entirety of the study region and period (1960 to 2005)."}
-read.csv(file = "data/aei_nocrop.csv") %>% 
+aei_2005 %>% 
  ggplot(aes(x=irrfrac)) +
   geom_histogram(bins = 100) +
   theme_minimal() + 
@@ -364,9 +452,80 @@ For the presence or absence of irrigation, the following hypothesis are proposed
 
 ### Thinning {#thin}
 
-| *"The first law of geography: Everything is related to everything else, but near things are more related than distant things." - Walter Tobler [@toblerComputerMovieSimulating1970]*
+| *"The first law of geography: Everything is related to everything else, but near things are more related than distant things." - Walter Tobler [-@toblerComputerMovieSimulating1970]*
+
+Due to the fact that the selected data set contains both spatial and temporal aspects, it is necessary to investigate the relationship between neighboring observations in both time and space to check for *autocorrelation*. Autocorrelation implies that observations that are close together (both temporally and spatially) are more likely to correlated [@hainingModellingSpatialSpatialTemporal2020, p. 6]. Less information about a given parameter of interest is present in a dataset that contains autocorrelation (for justification, see [@hainingModellingSpatialSpatialTemporal2020, p. 7]) therefore it is necessary to account for autocorrelation in the dataset.
 
 #### For Spatially Autocorrelated Structures {#for-spatially-autocorrelated-structures}
+
+There are different types of spatial autocorrelation: positive or negative, strong or weak. Figure \@ref(fig:spatialautocorexp), taken from the text *Modelling Spatial and Spatial-Temporal Data* [-@hainingModellingSpatialSpatialTemporal2020, p. 173] illustrates these different types of spatial autocorrelation. Positive autocorrelation exists when neighboring cells have similar values, or follow similar trends. Negative autocorrelation, although rarely seen, represents the opposite, neighboring cells show dissimilar values or opposite trends [@hainingModellingSpatialSpatialTemporal2020].
+
+```{r spatialautocorexp, fig.scap="Representation of different types and levels of spatial autocorrelation.", fig.cap="Representation of different types and levels of spatial autocorrelation. a) strong negative autocorrelation, b) negative autocorrelation, c) random, d) positive autocorrelation, e) strongly positive autocorrelation", out.width = "66%"}
+knitr::include_graphics("images/spatialautocorexp.png")
+```
+
+An investigation of spatial autocorrelation can be carried out multiple ways. The easiest is a simple visual inspection to visualize if clusters of similar data appear. For this masters thesis, an investigation of the outcome variable, irrigation fraction per grid cell, can be done using `bubble()` from the `sp` package to visualize if there are any clusters of similar data. It should be noted that spatial autocorrelation is scale dependent, meaning that depending on the frame of reference the amount of spatial autocorrelation seen can change [@hainingModellingSpatialSpatialTemporal2020, p. 172]. Spatial autocorrelation present at a country level, as seen in Figure \@ref(fig:spatautocor), becomes more or less apparent depending on whether the perspective is micro or macro.
+
+```{r spatautocor, fig.scap="Visualizations of spatial autocorrelation in India and Brazil in 2005.", fig.cap="Representations of irrigation fraction clusters. The figure on the left represents the irrigaion fraction for India in the year 2005. The figure on the right represents the irrigaion fraction for Brazil in the year 2005. The use of a bubble chart shows clusters of highly irrigated areas, smaller dots represent less irrigation per cell, larger dots represent more irrigation per cell. ", out.width= "100%"}
+IND <- aei_2005 %>% 
+  subset(ISO == "IND")
+
+BRZ <- aei_2005 %>% 
+  subset(ISO == "BRA")
+
+
+coordinates(IND) <- ~lon + lat
+coordinates(BRZ) <- ~lon + lat
+
+
+p1 <- 
+  bubble(BRZ, "irrfrac", 
+       maxsize = 1, 
+       key.space = "right",
+       key.entries = c(0.01, 0.05, 0.35, 0.5, 0.75), 
+       main = "IF (Brazil, 2005)")
+
+p2 <- 
+  bubble(IND, "irrfrac", 
+       maxsize = 1, 
+       key.entries = c(0.01, 0.05, 0.35, 0.5, 0.75),
+       key.space = "right",
+       main = "IF (India, 2005)")
+
+plot_grid(p2,p1, nrow = 1)
+```
+
+When visualizing irrigation fraction using `bubble()`, it is clear that in India there seems to be more cells which have similar amounts of irrigation grouped around them, i.e. cells with high irrigation fractions tend to be next to other cells with high irrigation fractions. In Brazil, these trends seem to be less apparent.
+
+Other ways to measure spatial autocorrelation exist, such as Moran's I [@moranNotesContinuousStochastic1950]. Moran's I is a common statistic that calculates the similarities of neighboring cells values when compared to the global mean cell value of the area. If neighboring cells share the same sign in their deviation from the global mean cell value of the sampled area, a positive autocorrelation is shown, and Moran's I is positive. If neighboring cells illustrate different signs in their deviation from the mean, negative autocorrelation is present, and Moran's I is negative. Moran's I values that are closer to zero illustrate weaker autocorrelation and those farther away from zero (in a positive or negative direction) imply stronger autocorrelation [@hainingModellingSpatialSpatialTemporal2020, p. 175]. Moran's I values for India and Brazil are presented in the Table \@ref(tab:).
+
+```{r}
+
+# proj4string(IND) <- CRS("+proj=longlat +datum=WGS84")
+# w <- 1/as.matrix(dist(coordinates(IND)))
+# 
+# diag(w) <- 0
+# moranind <- moran.test(IND$irrfrac,mat2listw(w))
+# 
+# proj4string(BRZ) <- CRS("+proj=longlat +datum=WGS84")
+# w2 <- 1/as.matrix(dist(coordinates(BRZ)))
+# 
+# diag(w2) <- 0
+# moranbraz <- moran.test(BRZ$irrfrac,mat2listw(w2)) 
+
+
+```
+
+```{r}
+# irrfracind <- spline.correlog(x=coordinates(IND)[,1], y=coordinates(IND)[,2],
+#                          z=IND$irrfrac, resamp=100, quiet=TRUE)
+# plot(irrfracind)
+# 
+# irrfracbraz <- spline.correlog(x=coordinates(BRZ)[,1], y=coordinates(BRZ)[,2],
+#                          z=BRZ$irrfrac, resamp=100, quiet=TRUE)
+# 
+# plot(irrfracbraz)
+```
 
 #### For Temporally Autocorrelated Structures
 
@@ -428,3 +587,9 @@ ggdag_status(zi_dag, use_labels = "label", text = FALSE) +
 ```
 
 To test these hypothesis, a quick view of correlations was carried out.
+
+### Model Comparison {#modcomparison}
+
+Multiple ways to compare models exist, some rely more heavily on a conceptual and causal understanding of the problem, others rely on predictive accuracy. Model comparison can occur *within-sample* or *out-of-sample,* meaning that comparisons calculated using data used to train the model (*within-sample*) or using data that has been left our when fitting the model (*out-of-sample*).
+
+More informal methods of model comparison exist such as prior and posterior predictive checks, comparison of bayes' factor or bayesian $R^2$ among others. [@gelmanUnderstandingPredictiveInformation2014]. However, as these checks are done using within-sample data, and some can be prone to overfitting under certain circumstances [@mcelreathStatisticalRethinkingBayesian2020, chap. 7]

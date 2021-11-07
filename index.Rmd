@@ -29,7 +29,8 @@ params:
 
 output:
 # COMMENT OUT THE GIFS PLOTLY BLAH BLAHHHH
-  thesisdown::thesis_pdf: default 
+  thesisdown::thesis_pdf: 
+    extra_dependencies: "subfig"
   # thesisdown::thesis_gitbook:
   #   css:
   #   anchor_sections: false
